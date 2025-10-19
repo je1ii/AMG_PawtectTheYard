@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class TowerPanelUI : MonoBehaviour
 {
-    public static TowerPanelUI instance;  
+    public static TowerPanelUI Instance;  
     public TowerSlot[] towerSlots; // tower slots in the UI
     public TowerData[] catTowers; // empty, maja, keso, and tustado
     
     private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     private void Start()

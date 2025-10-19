@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8428663162357329067}
   - component: {fileID: 9175437200225943886}
   - component: {fileID: -274877482038921865}
-  - component: {fileID: -3663495159490481362}
+  - component: {fileID: -1616859633189737540}
   m_Layer: 0
   m_Name: Tustado
   m_TagString: Untagged
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
   slotParent: 0
---- !u!114 &-3663495159490481362
+--- !u!114 &-1616859633189737540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,6 +114,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5129709286297428507}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8489d72d7315bd64dad0f24b70b86575, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TustadoTower
+  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
+  rotSpeed: 4.5
+  fireRange: 4
+  fireInterval: 2.5
+  target: {fileID: 0}
+  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}

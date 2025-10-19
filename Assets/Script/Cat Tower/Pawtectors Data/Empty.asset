@@ -15,4 +15,4 @@ MonoBehaviour:
   towerName: Empty
   towerIcon: {fileID: 0}
   prefab: {fileID: 0}
-  cost: 70
+  levelCost: 70

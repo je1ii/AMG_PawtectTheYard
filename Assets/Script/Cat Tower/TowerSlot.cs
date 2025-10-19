@@ -14,12 +14,19 @@ public class TowerSlot : MonoBehaviour
     
     [HideInInspector] public TowerData currentTower;
 
+    void Start()
+    {
+        towerIcon = gameObject.GetComponentInChildren<Image>();
+    }
+    
     public void SetTower(TowerData newTower)
     {
         currentTower = newTower;
-        //towerIcon.sprite = newTower.towerIcon;
         nameText.text = newTower.towerName;
         //costText.text = newTower.cost.text;
+        
+        if(newTower.towerIcon != null)
+            towerIcon.sprite = newTower.towerIcon;
     }
 
     public void SetLevel(int level)
@@ -31,7 +38,8 @@ public class TowerSlot : MonoBehaviour
     {
         if (currentTower != null)
         {
-            TowerPanelUI.instance.LevelUpTower(slotIndex, slotLevel, slotPos);
+            if(CatnipManager.Instance.SpendCatnip(currentTower.levelCost))
+                TowerPanelUI.Instance.LevelUpTower(slotIndex, slotLevel, slotPos);
         }
     }
 }

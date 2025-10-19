@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7228678415266418845}
   - component: {fileID: 4104227278165687116}
   - component: {fileID: 8757580865901364280}
-  - component: {fileID: 6876979613410593435}
+  - component: {fileID: -8341204523363189083}
   m_Layer: 0
   m_Name: Maja
   m_TagString: Untagged
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
   slotParent: 0
---- !u!114 &6876979613410593435
+--- !u!114 &-8341204523363189083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,6 +114,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6726842337572283657}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e86d28aae900ef4796b2f0a2f626ec9, type: 3}
+  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MajaTower
+  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
+  rotSpeed: 4.5
+  fireRange: 4
+  fireInterval: 2.5
+  target: {fileID: 0}
+  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}

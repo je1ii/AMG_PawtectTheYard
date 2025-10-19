@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tustado
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: Tustado
-  towerIcon: {fileID: 0}
+  towerIcon: {fileID: -2154362256948729526, guid: 26f3e674cf500ee4bb1031eca251f21a, type: 3}
   prefab: {fileID: 5129709286297428507, guid: 5d89ec55336f38947b875d305c08fcd6, type: 3}
-  cost: 450
+  levelCost: 450
