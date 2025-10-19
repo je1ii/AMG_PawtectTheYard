@@ -91,7 +91,7 @@ public class FurballAttack : MonoBehaviour
         while (!_stopFiring)
         {
             // fire bullet after fireInterval
-            FireBullet();
+            FireFurball();
             await Task.Delay((int)(fireInterval * 1000));
         }
 
@@ -99,7 +99,7 @@ public class FurballAttack : MonoBehaviour
         _isFiring = false;
     }
 
-    private void FireBullet()
+    private void FireFurball()
     {
         if (target == null) return;
         
