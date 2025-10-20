@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &204542287253177422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3362331903913610064}
+  - component: {fileID: 7650429845415221142}
+  m_Layer: 0
+  m_Name: FurballAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3362331903913610064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204542287253177422}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7228678415266418845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7650429845415221142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204542287253177422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
+  damage: 8
+  speed: 8
+  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
 --- !u!1 &6726842337572283657
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +58,6 @@ GameObject:
   - component: {fileID: 7228678415266418845}
   - component: {fileID: 4104227278165687116}
   - component: {fileID: 8757580865901364280}
-  - component: {fileID: -8341204523363189083}
   m_Layer: 0
   m_Name: Maja
   m_TagString: Untagged
@@ -31,7 +77,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3362331903913610064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4104227278165687116
@@ -104,21 +151,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4252c0a78b31e3c4ab0f86b2b27b7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
+  meleeRange: 1
+  longRange: 2.5
+  attackInterval: 2
+  rotSpeed: 4
+  furballAttack: {fileID: 7650429845415221142}
+  clawAttack: {fileID: 0}
+  biteAttack: {fileID: 0}
+  enemiesInRange: []
   slotParent: 0
---- !u!114 &-8341204523363189083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6726842337572283657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
-  rotSpeed: 4.5
-  fireRange: 4
-  fireInterval: 2.5
-  target: {fileID: 0}
-  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
+  towerLevel: 0

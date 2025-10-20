@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &65682898017228578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48941063603476247}
+  - component: {fileID: 2157584220922464369}
+  m_Layer: 0
+  m_Name: FurballAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48941063603476247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65682898017228578}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5416352191766973904}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2157584220922464369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65682898017228578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
+  damage: 8
+  speed: 8
+  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
+--- !u!1 &805233627408238250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6125954926937196701}
+  - component: {fileID: 5762661479746675222}
+  m_Layer: 0
+  m_Name: ClawAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6125954926937196701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805233627408238250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5416352191766973904}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5762661479746675222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805233627408238250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2780a6c407072b94c914538d4e585335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClawAttack
+  damage: 10
+  maxTargets: 3
+  attackRadius: 1.5
 --- !u!1 &3404601160000267055
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +105,6 @@ GameObject:
   - component: {fileID: 5416352191766973904}
   - component: {fileID: 4851589940697331590}
   - component: {fileID: 8449455645213801072}
-  - component: {fileID: 4780205638007853897}
   m_Layer: 0
   m_Name: Keso
   m_TagString: Untagged
@@ -31,7 +124,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 48941063603476247}
+  - {fileID: 6125954926937196701}
+  - {fileID: 4166733551613182760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4851589940697331590
@@ -104,21 +200,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4252c0a78b31e3c4ab0f86b2b27b7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
+  meleeRange: 1
+  longRange: 2.5
+  attackInterval: 2
+  rotSpeed: 4
+  furballAttack: {fileID: 2157584220922464369}
+  clawAttack: {fileID: 5762661479746675222}
+  biteAttack: {fileID: 6338141920963565769}
+  enemiesInRange: []
   slotParent: 0
---- !u!114 &4780205638007853897
+  towerLevel: 0
+--- !u!1 &3959809339415185022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4166733551613182760}
+  - component: {fileID: 6338141920963565769}
+  m_Layer: 0
+  m_Name: BiteAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4166733551613182760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959809339415185022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5416352191766973904}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6338141920963565769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3404601160000267055}
+  m_GameObject: {fileID: 3959809339415185022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 51c872757ed353e4d8d6880d8f9f6a5f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
-  rotSpeed: 4.5
-  fireRange: 4
-  fireInterval: 2.5
-  target: {fileID: 0}
-  furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::BiteAttack
+  damage: 100

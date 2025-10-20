@@ -48,6 +48,7 @@ public class TowerPanelUI : MonoBehaviour
                 var newTower = Instantiate(nextCatTower.prefab, pos);
                 var ct = newTower.GetComponent<CatTower>();
                 ct.AssignSlot(slotIndex);
+                ct.AssignLevel(newLevel);
             }
         }
     }

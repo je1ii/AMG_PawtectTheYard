@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8428663162357329067}
   - component: {fileID: 9175437200225943886}
   - component: {fileID: -274877482038921865}
-  - component: {fileID: -1616859633189737540}
   m_Layer: 0
   m_Name: Tustado
   m_TagString: Untagged
@@ -31,7 +30,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4344714210232618754}
+  - {fileID: 7918393784548021734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9175437200225943886
@@ -104,21 +105,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4252c0a78b31e3c4ab0f86b2b27b7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
-  slotParent: 0
---- !u!114 &-1616859633189737540
+  meleeRange: 1
+  longRange: 2.5
+  attackInterval: 2
+  rotSpeed: 4
+  furballAttack: {fileID: 8992733837445219678}
+  clawAttack: {fileID: 8196487839234334762}
+  biteAttack: {fileID: 0}
+  enemiesInRange: []
+  slotParent: 1
+  towerLevel: 0
+--- !u!1 &8313675556209111915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4344714210232618754}
+  - component: {fileID: 8992733837445219678}
+  m_Layer: 0
+  m_Name: FurballAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4344714210232618754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313675556209111915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8428663162357329067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8992733837445219678
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5129709286297428507}
+  m_GameObject: {fileID: 8313675556209111915}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
-  rotSpeed: 4.5
-  fireRange: 4
-  fireInterval: 2.5
-  target: {fileID: 0}
+  damage: 8
+  speed: 8
   furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
+--- !u!1 &8399598924212037368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7918393784548021734}
+  - component: {fileID: 8196487839234334762}
+  m_Layer: 0
+  m_Name: ClawAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7918393784548021734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399598924212037368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8428663162357329067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8196487839234334762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399598924212037368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2780a6c407072b94c914538d4e585335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClawAttack
+  damage: 10
+  maxTargets: 3
+  attackRadius: 1.5
