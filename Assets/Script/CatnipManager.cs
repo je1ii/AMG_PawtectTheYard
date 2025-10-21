@@ -50,7 +50,7 @@ public class CatnipManager : MonoBehaviour
     private void UpdateCatnipUI()
     {
         if (catnipText != null)
-        catnipText.text = currentCatnip.ToString();
+            catnipText.text = currentCatnip.ToString();
     }
 
     public int GetGold()
