@@ -5,7 +5,7 @@ public class HoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public RectTransform panel;       // The UI panel to move
     public float slideDistance = 150f; // How far it slides down when hidden
-    public float slideSpeed = 10f;      // How fast it slides
+    public float slideSpeed = 20f;      // How fast it slides
 
     private Vector2 shownPosition;
     private Vector2 hiddenPosition;
