@@ -9,10 +9,10 @@ public class EnemyPathMovement : MonoBehaviour
     public Transform path4;
 
     [Header("Movement")]
-    public float speed = 2f;
+    public float speed = 1f;
 
     [Header("V Curve")]
-    public float curveDepth = 10.5f; // how deep the V cruve
+    public float curveDepth = 6f; // how deep the V cruve
 
     private float totalPathLength;
     private float traveledDistance = 0f;

@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4252c0a78b31e3c4ab0f86b2b27b7b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
-  meleeRange: 0.8
-  longRange: 1.7
+  meleeRange: 1
+  longRange: 2
   attackInterval: 2
   rotSpeed: 4
   furballAttack: {fileID: 8992733837445219678}
