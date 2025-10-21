@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 public class CatTower : MonoBehaviour
 {
-    public float meleeRange = 1f;
-    public float longRange = 2f;
+    public float meleeRange = 0.8f;
+    public float longRange = 1.7f;
     public float attackInterval = 2f;
     public float rotSpeed = 4f;
 
@@ -150,7 +150,7 @@ public class CatTower : MonoBehaviour
         var direction = currentTarget.position - transform.position;
         direction.Normalize();
 
-        var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90f;
+        var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         var currentAngle = transform.eulerAngles.z;
         var newAngle = Mathf.LerpAngle(currentAngle, targetAngle, rotSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, 0, newAngle);
