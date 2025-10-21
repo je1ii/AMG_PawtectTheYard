@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 public class CatTower : MonoBehaviour
 {
+    private static readonly int Furball1 = Animator.StringToHash("Furball");
     public float meleeRange = 0.8f;
     public float longRange = 1.7f;
     public float attackInterval = 2f;
@@ -23,7 +24,14 @@ public class CatTower : MonoBehaviour
     
     public int slotParent;
     public int towerLevel;
-    
+
+    private Animator catAnimator;
+
+    void Awake()
+    {
+        catAnimator = GetComponentInChildren<Animator>();
+    }
+
     void Update()
     {
         UpdateEnemiesInRange();
@@ -64,48 +72,57 @@ public class CatTower : MonoBehaviour
         isFiring = false;
     }
 
-    private void Attack(float distance)
+    private async void Attack(float distance)
     {
-        switch (towerLevel)
+        try
         {
-            case 1:
-                Debug.Log("Furball attack!");
-                furballAttack.Attack(enemiesInRange, transform.position);
-                break;
-
-            case 2:
-                if (distance <= meleeRange)
-                {
-                    Debug.Log("Claw attack!");
-                    clawAttack.Attack(enemiesInRange, transform.position);
-                }
-                else
-                {
+            switch (towerLevel)
+            {
+                case 1:
                     Debug.Log("Furball attack!");
+                    await PlayFurballAnim();
                     furballAttack.Attack(enemiesInRange, transform.position);
-                }
-                break;
+                    break;
 
-            case 3:
-                if (attackCounter >= 5)
-                {
-                    Debug.Log("Bite attack!");
-                    biteAttack.Attack(enemiesInRange, transform.position);
-                    attackCounter = 0;
-                }
-                else if (distance <= meleeRange)
-                {
-                    Debug.Log("Claw attack!");
-                    clawAttack.Attack(enemiesInRange, transform.position);
-                    attackCounter++;
-                }
-                else
-                {
-                    Debug.Log("Furball attack!");
-                    furballAttack.Attack(enemiesInRange, transform.position);
-                    attackCounter++;
-                }
-                break;
+                case 2:
+                    if (distance <= meleeRange)
+                    {
+                        Debug.Log("Claw attack!");
+                        clawAttack.Attack(enemiesInRange, transform.position);
+                    }
+                    else
+                    {
+                        Debug.Log("Furball attack!");
+                        furballAttack.Attack(enemiesInRange, transform.position);
+                    }
+                    break;
+
+                case 3:
+                    if (attackCounter >= 5)
+                    {
+                        Debug.Log("Bite attack!");
+                        biteAttack.Attack(enemiesInRange, transform.position);
+                        attackCounter = 0;
+                    }
+                    else if (distance <= meleeRange)
+                    {
+                        Debug.Log("Claw attack!");
+                        clawAttack.Attack(enemiesInRange, transform.position);
+                        attackCounter++;
+                    }
+                    else
+                    {
+                        Debug.Log("Furball attack!");
+                        furballAttack.Attack(enemiesInRange, transform.position);
+                        attackCounter++;
+                    }
+                    break;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"An unexpected error occurred: {e.Message}");
+            Debug.LogError($"Error Details: {e.ToString()}");
         }
     }
     
@@ -154,6 +171,13 @@ public class CatTower : MonoBehaviour
         var currentAngle = transform.eulerAngles.z;
         var newAngle = Mathf.LerpAngle(currentAngle, targetAngle, rotSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, 0, newAngle);
+    }
+
+    private async Task PlayFurballAnim()
+    {
+        Debug.Log("ANIMATING FURBALL");
+        catAnimator.SetTrigger("Furball");
+        await Task.Delay(1000);
     }
 
     private float FindDistance(Transform target)

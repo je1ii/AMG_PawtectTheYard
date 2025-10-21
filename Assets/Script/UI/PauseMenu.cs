@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseScreen;
-    public float animationSpeed = 5f;
+    public float animationSpeed = 10f;
 
     private bool isPaused = false;
     private Vector3 targetScale;
@@ -28,14 +28,24 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0f;
-        targetScale = Vector3.one;
-        isPaused = true;
+        if (!isPaused)
+        {
+            Time.timeScale = 0f;
+            targetScale = Vector3.one;
+            isPaused = true;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            targetScale = Vector3.zero;
+            isPaused = false;
+        }
+        
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         targetScale = Vector3.zero;
         isPaused = false;
     }
