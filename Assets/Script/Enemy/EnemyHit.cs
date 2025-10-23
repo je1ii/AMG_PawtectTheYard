@@ -31,14 +31,11 @@ public class EnemyHit : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
-        {
-            Debug.Log("Hit detected!");
-            isHit = true;
-            lerpTime = 0f;
-        }
-    }
+    public void TriggerHitFlash()
+{
+    Debug.Log($"{gameObject.name} got hit!");
+    isHit = true;
+    lerpTime = 0f;
+}
 
-// Yung bullets/projectile ng tower lagyan niyo "Bullet" TAG, RIGIDBODY2 gravity scale = 0,  CIRCLE COLLIDER2d Trigger on.
-// Yung Enemies any COLLIDER2d lng Trigger off.
-
+}
