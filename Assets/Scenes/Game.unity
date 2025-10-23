@@ -352,6 +352,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2091063890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &249913481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249913483}
+  - component: {fileID: 249913482}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &249913482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249913481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a120c34495ec4ad48a3474b2f8a871f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  roachSpawner: {fileID: 1478527301}
+  gerrySpawner: {fileID: 443756846}
+  viperSpawner: {fileID: 790051312}
+  path1: {fileID: 1896257193}
+  path2: {fileID: 1035885119}
+  path3: {fileID: 144514564}
+  path4: {fileID: 694829391}
+  spawnDelay: 1.5
+  batchDelay: 12
+  testRound1_Wave1: 0
+  testRound1_Wave2: 0
+  testRound1_Wave3: 0
+  testRound1_Wave4: 0
+  testRound1_Wave5: 0
+  testRound2_Wave1: 0
+  testRound2_Wave2: 0
+  testRound2_Wave3: 0
+  testRound2_Wave4: 0
+  testRound2_Wave5: 1
+--- !u!4 &249913483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249913481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.1108, y: 0.37962, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1478527302}
+  - {fileID: 443756847}
+  - {fileID: 790051313}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &271087043
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +886,54 @@ MonoBehaviour:
   towerIcon: {fileID: 0}
   nameText: {fileID: 1545636055}
   currentTower: {fileID: 0}
+--- !u!1 &443756845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443756847}
+  - component: {fileID: 443756846}
+  m_Layer: 0
+  m_Name: GerrySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &443756846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443756845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88dc6a9b69754c4b905107e4a1842c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GerrySpawner
+  gerryPrefab: {fileID: 689556236055443379, guid: 934636eba7cda0549943042c1185252a, type: 3}
+  maxHealth: 60
+  speed: 3.5
+  catnipDrop: 10
+--- !u!4 &443756847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443756845}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249913483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,6 +1431,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayManager
   waveCounterText: {fileID: 710056443}
+--- !u!1 &790051311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790051313}
+  - component: {fileID: 790051312}
+  m_Layer: 0
+  m_Name: ViperSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &790051312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790051311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566e1036708eaa94eb133262249abd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViperSpawner
+  viperPrefab: {fileID: 8787472494681764484, guid: aa89030dda3520a478348913c42d5c3f, type: 3}
+  maxHealth: 100
+  speed: 5
+  catnipDrop: 15
+--- !u!4 &790051313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790051311}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249913483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889878945
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2695,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310970844}
   m_CullTransparentMesh: 1
+--- !u!1 &1478527300
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1478527302}
+  - component: {fileID: 1478527301}
+  m_Layer: 0
+  m_Name: RoachSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1478527301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478527300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722cf2b0d7101ce489ba92535f62a38c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoachSpawner
+  roachPrefab: {fileID: 5639754316391415422, guid: 9f151933ffb25eb4ba52a1deefd31ebe, type: 3}
+  maxHealth: 30
+  speed: 2
+  catnipDrop: 5
+--- !u!4 &1478527302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478527300}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 249913483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1508852916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2610,68 +2820,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07eb16ab5f1e7c84c8cfa4a1c5dec92a, type: 3}
---- !u!1 &1522148048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1522148050}
-  - component: {fileID: 1522148049}
-  m_Layer: 0
-  m_Name: WaveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1522148049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522148048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a120c34495ec4ad48a3474b2f8a871f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  roachPrefab: {fileID: 5639754316391415422, guid: 9f151933ffb25eb4ba52a1deefd31ebe, type: 3}
-  gerryPrefab: {fileID: 689556236055443379, guid: 934636eba7cda0549943042c1185252a, type: 3}
-  viperPrefab: {fileID: 8787472494681764484, guid: aa89030dda3520a478348913c42d5c3f, type: 3}
-  path1: {fileID: 1896257193}
-  path2: {fileID: 1035885119}
-  path3: {fileID: 144514564}
-  path4: {fileID: 694829391}
-  spawnDelay: 1.5
-  testRound1_Wave1: 0
-  testRound1_Wave2: 0
-  testRound1_Wave3: 0
-  testRound1_Wave4: 0
-  testRound1_Wave5: 0
-  testRound2_Wave1: 0
-  testRound2_Wave2: 0
-  testRound2_Wave3: 0
-  testRound2_Wave4: 0
-  testRound2_Wave5: 1
---- !u!4 &1522148050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522148048}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.86482, y: -0.37035, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545636053
 GameObject:
   m_ObjectHideFlags: 0
@@ -4139,4 +4287,4 @@ SceneRoots:
   - {fileID: 889878949}
   - {fileID: 1015354301}
   - {fileID: 1508852916}
-  - {fileID: 1522148050}
+  - {fileID: 249913483}

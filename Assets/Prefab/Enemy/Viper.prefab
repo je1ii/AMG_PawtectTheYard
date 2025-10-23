@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 181388796501738560}
   - component: {fileID: 6797614562753307313}
-  - component: {fileID: 1859141499206491518}
+  - component: {fileID: 2053624177836329686}
   m_Layer: 0
   m_Name: Viper
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1859141499206491518
+--- !u!114 &2053624177836329686
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

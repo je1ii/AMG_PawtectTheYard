@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4060749333076401447}
   - component: {fileID: 193733158168221409}
-  - component: {fileID: -7744598726516347150}
+  - component: {fileID: -4194871233078010027}
   m_Layer: 0
   m_Name: Roach
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7744598726516347150
+--- !u!114 &-4194871233078010027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

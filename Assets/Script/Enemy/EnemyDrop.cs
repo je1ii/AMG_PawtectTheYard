@@ -5,11 +5,13 @@ public class EnemyDrop : MonoBehaviour
 {
     [Header("Enemy Stats")]
     public int maxHealth = 30;
-    public float speed = 2f;
     public float fadeDuration = 1f;
 
     [Header("Catnip Settings")]
-    public GameObject catnipPrefab; // Drag your Catnip prefab here
+    public GameObject catnipPrefab;
+
+    [Header("Hit Detection")]
+    public float hitRange = 0.5f; // how close the bullet must be to count as a hit
 
     private int currentHealth;
     private SpriteRenderer spriteRenderer;
@@ -21,11 +23,20 @@ public class EnemyDrop : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (other.CompareTag("Bullet"))
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("Bullet");
+
+        foreach (GameObject bullet in bullets)
         {
-            TakeDamage(8); // Bullet damage
+            float distance = Vector2.Distance(transform.position, bullet.transform.position);
+
+            if (distance <= hitRange)
+            {
+                TakeDamage(8);
+                Destroy(bullet);
+                break; 
+            }
         }
     }
 
@@ -51,18 +62,10 @@ public class EnemyDrop : MonoBehaviour
 
     IEnumerator FadeAndDestroyEnemy()
     {
-        Debug.Log("Enemy fade start");
-
         yield return StartCoroutine(FadeOut(spriteRenderer, "Enemy"));
 
-        Debug.Log("Enemy fade complete!");
-
-        // Now spawn Catnip after the enemy has faded
         Instantiate(catnipPrefab, transform.position, Quaternion.identity);
-        Debug.Log("Catnip dropped after enemy destroyed.");
-
         Destroy(gameObject);
-        Debug.Log("Enemy object destroyed.");
     }
 
     IEnumerator FadeOut(SpriteRenderer renderer, string objectName)
@@ -75,7 +78,6 @@ public class EnemyDrop : MonoBehaviour
             t += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
             renderer.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-            Debug.Log($"{objectName} fading... alpha: {alpha:F2}");
             yield return null;
         }
 

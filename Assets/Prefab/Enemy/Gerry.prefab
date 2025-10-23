@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6362303102745152077}
   - component: {fileID: 1096183163993686653}
-  - component: {fileID: -4643941897328271420}
+  - component: {fileID: 3001882165877495145}
   m_Layer: 0
   m_Name: Gerry
   m_TagString: Untagged
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4643941897328271420
+--- !u!114 &3001882165877495145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
