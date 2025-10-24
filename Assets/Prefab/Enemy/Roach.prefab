@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 3052000012787804338}
   - component: {fileID: 1922910761237558092}
   - component: {fileID: 3498688443008899480}
+  - component: {fileID: 8157309416009596139}
   m_Layer: 0
   m_Name: HealthBarCanvas
   m_TagString: Untagged
@@ -515,3 +516,15 @@ MonoBehaviour:
   regenRate: 1
   regenDelay: 2
   _currentHealth: 0
+--- !u!225 &8157309416009596139
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144729940972636982}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

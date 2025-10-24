@@ -7,7 +7,7 @@ public class FurballAttack : CatAttackBase
 {
     public GameObject furballPrefab;
     
-    public override bool Attack(List<Transform> enemies, Vector3 towerPos, int towerLevel)
+    public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) return false;
         
@@ -16,7 +16,7 @@ public class FurballAttack : CatAttackBase
         
         Vector2 dir = target.position - towerPos;
         GameObject furball = Instantiate(furballPrefab, towerPos, Quaternion.identity);
-        furball.GetComponent<Furball>().GetTowerLevel(towerLevel);
+        furball.GetComponent<Furball>().GetTowerData(towerData);
         furball.GetComponent<Furball>().SetDirection(dir);
         furball.GetComponent<Furball>().SetTarget(target);
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 public class CatTower : MonoBehaviour
@@ -25,7 +26,7 @@ public class CatTower : MonoBehaviour
     [SerializeField] private List<Transform> enemiesInRange = new List<Transform>();
     
     public int slotParent;
-    public int towerLevel;
+    public TowerData towerData;
 
     [SerializeField] private string[] clawAnim = { "ClawL", "ClawR" };
     private Animator catAnimator;
@@ -78,46 +79,49 @@ public class CatTower : MonoBehaviour
         try
         {
             if (this.gameObject == null) return;
-            switch (towerLevel)
+            switch (towerData.currentLevel)
             {
                 case 1:
+                    Debug.Log("Furball Lvl 1");
                     await PlayFurballAnim();
-                    if (this.gameObject != null)furballAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                    if (this.gameObject != null)furballAttack.Attack(enemiesInRange, transform.position, towerData);
                     break;
 
                 case 2:
                     if (distance <= meleeRange)
                     {
-                        Debug.Log("Claw Lvl 3");
+                        Debug.Log("Claw Lvl 2");
                         await PlayClawAnim();
-                        clawAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                        clawAttack.Attack(enemiesInRange, transform.position, towerData);
                     }
                     else
                     {
+                        Debug.Log("Furball Lvl 2");
                         await PlayFurballAnim();
-                        furballAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                        furballAttack.Attack(enemiesInRange, transform.position, towerData);
                     }
                     break;
 
                 case 3:
-                    if (attackCounter >= 5)
+                    if (attackCounter >= towerData.attacksBeforeBite)
                     {
                         Debug.Log("Bite Lvl 3");
                         await PlayBiteAnim();
-                        biteAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                        biteAttack.Attack(enemiesInRange, transform.position, towerData);
                         attackCounter = 0;
                     }
                     else if (distance <= meleeRange)
                     {
                         Debug.Log("Claw Lvl 3");
                         await PlayClawAnim();
-                        clawAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                        clawAttack.Attack(enemiesInRange, transform.position, towerData);
                         attackCounter++;
                     }
                     else
                     {
+                        Debug.Log("Furball Lvl 3");
                         await PlayFurballAnim();
-                        furballAttack.Attack(enemiesInRange, transform.position, towerLevel);
+                        furballAttack.Attack(enemiesInRange, transform.position, towerData);
                         attackCounter++;
                     }
                     break;
@@ -125,7 +129,8 @@ public class CatTower : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Cat tower replaced with null exception error, we catched it!");
+            Debug.LogError($"An unexpected error occurred: {e.Message}");
+            Debug.LogError($"Error Details: {e.ToString()}");
         }
     }
     
@@ -160,7 +165,7 @@ public class CatTower : MonoBehaviour
             .OrderBy(e => FindDistance(e))
             .FirstOrDefault();
 
-        if (closestMelee != null)
+        if (closestMelee != null && towerData.currentLevel != 1)
         {
             // Prioritize melee enemy
             if (currentTarget != closestMelee)
@@ -199,20 +204,21 @@ public class CatTower : MonoBehaviour
 
     private async Task PlayFurballAnim()
     {
-        catAnimator.SetTrigger("Furball");
+        
+        if (catAnimator != null && catAnimator.isActiveAndEnabled) catAnimator.SetTrigger("Furball");
         await Task.Delay(1125);
     }
 
     private async Task PlayClawAnim()
     {
         var clawSide = clawAnim[UnityEngine.Random.Range(0, clawAnim.Length)];
-        catAnimator.SetTrigger(clawSide);
+        if (catAnimator != null && catAnimator.isActiveAndEnabled) catAnimator.SetTrigger(clawSide);
         await Task.Delay(750);
     }
 
     private async Task PlayBiteAnim()
     {
-        catAnimator.SetTrigger("Bite");
+        if (catAnimator != null && catAnimator.isActiveAndEnabled) catAnimator.SetTrigger("Bite");
         await Task.Delay(1100);
     }
 
@@ -223,8 +229,16 @@ public class CatTower : MonoBehaviour
     }
     
     public void AssignSlot(int slot) => slotParent = slot;
-    public void AssignLevel(int level) => towerLevel = level;
+    public void AssignData(TowerData data) => towerData = data;
     public void AssignAttackInterval(float interval) => attackInterval = interval;
+    public void ForceStopEverything()
+    {
+        if (currentTarget == null && attackCoroutine != null)
+        {
+            StopAllCoroutines();
+            catAnimator.enabled = false;
+        }
+    }
     
     private void OnDrawGizmos()
     {

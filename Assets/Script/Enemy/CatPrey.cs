@@ -152,14 +152,35 @@ public class CatPrey : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
+        CanvasGroup cg = GetComponentInChildren<CanvasGroup>();
         Color c = spriteRenderer.color;
-        while (c.a > 0)
+        
+        // Fade controller
+        float fadeDuration = 1f; 
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
         {
-            c.a -= Time.deltaTime;
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+
+            // Fade enemy's sprite
+            c.a = alpha;
             spriteRenderer.color = c;
+
+            // Fade UI if it exists
+            if (cg != null)
+                cg.alpha = alpha;
+
             yield return null;
         }
 
+        // Ensure fully transparent at the end
+        if (cg != null) cg.alpha = 0f;
+        c.a = 0f;
+        spriteRenderer.color = c;
+        
+        // REMOVE COMMENT TO SPAWN CATNIP
         // if (enemyData.catnipPrefab != null)
         //     Instantiate(enemyData.catnipPrefab, transform.position, Quaternion.identity);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class BiteAttack : CatAttackBase
 {
     public float attackRadius = 1.7f;
-    public override bool Attack(List<Transform> enemies, Vector3 towerPos, int towerLevel)
+    public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) 
             return false;
@@ -36,7 +36,7 @@ public class BiteAttack : CatAttackBase
         //Play bite animation here
         Debug.Log($"Bite confirmed");
 
-        highestHPEnemy.GetComponentInChildren<EnemyHealthBar>().TakeDamage(60f);
+        highestHPEnemy.GetComponentInChildren<EnemyHealthBar>().TakeDamage(towerData.biteLevel3);
 
         return true;
     }

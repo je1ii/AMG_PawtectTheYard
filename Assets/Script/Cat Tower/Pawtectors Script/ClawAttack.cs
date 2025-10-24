@@ -6,7 +6,7 @@ public class ClawAttack : CatAttackBase
 {
     public int maxTargets = 3;
     public float attackRadius = 0.8f;
-    public override bool Attack(List<Transform> enemies, Vector3 towerPos, int towerLevel)
+    public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) return false;
 
@@ -33,7 +33,7 @@ public class ClawAttack : CatAttackBase
                 continue;
             }
 
-            float damage = (towerLevel == 3) ? 20f : 10f;
+            float damage = (towerData.currentLevel == 3) ? towerData.clawLevel3 : towerData.clawLevel2;
             hp.TakeDamage(damage);
             Debug.Log($"Claw hit {enemy.name} for {damage} damage!");
         }

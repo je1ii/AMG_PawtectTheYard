@@ -5,7 +5,7 @@ public class Furball : MonoBehaviour
     public float speed = 15f; // speed of the bullet
     public float deathRange = 0.5f; // how close the bullet to the target to be considered collided
 
-    private int towerLevel;
+    private TowerData data;
 
     private Transform _enemy; // holds the target
     private Vector2 _direction; // holds the direction of the bullet after spawn
@@ -24,16 +24,16 @@ public class Furball : MonoBehaviour
                 EnemyHealthBar health = _enemy.GetComponentInChildren<EnemyHealthBar>();
                 if (health != null)
                 {
-                    switch (towerLevel)
+                    switch (data.currentLevel)
                     {
                         case 1:
-                            health.TakeDamage(8f);
+                            health.TakeDamage(data.furballLevel1);
                             break;
                         case 2:
-                            health.TakeDamage(15f);
+                            health.TakeDamage(data.furballLevel2);
                             break;
                         case 3:
-                            health.TakeDamage(25f);
+                            health.TakeDamage(data.furballLevel3);
                             break;
                     }
                 }
@@ -42,9 +42,9 @@ public class Furball : MonoBehaviour
         }
     }
 
-    public void GetTowerLevel(int level)
+    public void GetTowerData(TowerData towerData)
     {
-        towerLevel = level;
+        data = towerData;
     }
     
     public void SetDirection(Vector2 dir)

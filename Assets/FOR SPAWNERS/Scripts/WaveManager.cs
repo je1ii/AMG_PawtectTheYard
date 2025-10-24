@@ -86,7 +86,7 @@ public class WaveManager : MonoBehaviour
     IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4); }
     IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true); }
 
-    // -------- ROUND 2 -------- //
+    // -------- ROUND 2 -------- // INSERT ENEMY'S END STATS
     IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2); }
     IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3); }
     IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6); }
@@ -127,7 +127,7 @@ public class WaveManager : MonoBehaviour
             viperSpawned += viperThisBatch;
 
             // Wait between batches
-            yield return new WaitForSeconds(batchDelay);
+            yield return new WaitForSeconds(batchDelay); // GET ENEMIES BY TAG: (batchDelay || numOfEnemies == 0)
         }
     }
 

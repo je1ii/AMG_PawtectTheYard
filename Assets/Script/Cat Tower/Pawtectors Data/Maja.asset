@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba71c1f2886e7c146a723e5fe6e6b3a8, type: 3}
   m_Name: Maja
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerName: Maja
+  towerName: 1
   towerIcon: {fileID: 286256669205873195, guid: 2e87a15bc5d74344ab5adccfa991dbb5, type: 3}
   prefab: {fileID: 6726842337572283657, guid: cf791c2d9faa60649815555adc7089b0, type: 3}
+  currentLevel: 1
   levelCost: 100
+  furballLevel1: 8
+  furballLevel2: 0
+  furballLevel3: 0
+  clawLevel2: 0
+  clawLevel3: 0
+  biteLevel3: 0
+  attacksBeforeBite: 0
