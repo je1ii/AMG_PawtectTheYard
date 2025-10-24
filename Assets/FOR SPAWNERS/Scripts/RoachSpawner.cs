@@ -3,16 +3,13 @@ using System.Collections;
 
 public class RoachSpawner : MonoBehaviour
 {
-    [Header("Roach Settings")]
-    public GameObject roachPrefab;
-    public int maxHealth = 30;
-    public float speed = 2f;
-    public int catnipDrop = 5;
+    [Header("Roach Data")]
+    public EnemyData data;
 
     // signature: (total, batchSize, moveSpeed, delay, manager, spawnPosition)
-    public IEnumerator SpawnRoachBatch(int total, int batchSize, float moveSpeed, float delay, WaveManager manager, Vector3 spawnPosition)
+    public IEnumerator SpawnRoachBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition)
     {
-        if (roachPrefab == null)
+        if (data.prefab == null)
         {
             Debug.LogWarning("RoachSpawner: roachPrefab not assigned");
             yield break;
@@ -23,8 +20,10 @@ public class RoachSpawner : MonoBehaviour
         {
             for (int i = 0; i < batchSize && spawned < total; i++)
             {
-                GameObject roach = Instantiate(roachPrefab, spawnPosition, Quaternion.identity);
-                if (manager != null) manager.SetupEnemyPath(roach, moveSpeed);
+                GameObject roach = Instantiate(data.prefab, spawnPosition, Quaternion.identity);
+                roach.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.startHealth);
+                roach.GetComponent<CatPrey>().SetData(data);
+                if (manager != null) manager.SetupEnemyPath(roach, data.startSpeed);
                 spawned++;
                 yield return new WaitForSeconds(delay);
             }

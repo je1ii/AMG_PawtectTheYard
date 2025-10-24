@@ -3,28 +3,27 @@ using System.Collections;
 
 public class GerrySpawner : MonoBehaviour
 {
-    [Header("Gerry Settings")]
-    public GameObject gerryPrefab;
-    public int maxHealth = 50;
-    public float speed = 3.5f;
-    public int catnipDrop = 10;
+    [Header("Gerry Data")]
+    public EnemyData data;
 
     // signature: (total, batchSize, moveSpeed, delay, manager, spawnPosition)
-    public IEnumerator SpawnGerryBatch(int total, int batchSize, float moveSpeed, float delay, WaveManager manager, Vector3 spawnPosition)
+    public IEnumerator SpawnGerryBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition)
     {
-        if (gerryPrefab == null)
+        if (data.prefab == null)
         {
-            Debug.LogWarning("GerrySpawner: gerryPrefab not assigned");
+            Debug.LogWarning("GerrySpawner: gerry data = prefab not assigned");
             yield break;
         }
 
-        int spawned = 0;
+        int spawned = 0; 
         while (spawned < total)
         {
             for (int i = 0; i < batchSize && spawned < total; i++)
             {
-                GameObject gerry = Instantiate(gerryPrefab, spawnPosition, Quaternion.identity);
-                if (manager != null) manager.SetupEnemyPath(gerry, moveSpeed);
+                GameObject gerry = Instantiate(data.prefab, spawnPosition, Quaternion.identity);
+                gerry.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.startHealth);
+                gerry.GetComponent<CatPrey>().SetData(data);
+                if (manager != null) manager.SetupEnemyPath(gerry, data.startSpeed);
                 spawned++;
                 yield return new WaitForSeconds(delay);
             }

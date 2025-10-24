@@ -80,24 +80,23 @@ public class WaveManager : MonoBehaviour
     }
 
     // -------- ROUND 1 -------- //
-    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0, 2f, 0f, 0f); }
-    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1, 2f, 3.5f, 0f); }
-    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2, 2.2f, 3.5f, 0f); }
-    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4, 2.3f, 3.8f, 0f); }
-    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, 2.5f, 4f, 5f, true); }
+    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0); }
+    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1); }
+    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2); }
+    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4); }
+    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true); }
 
     // -------- ROUND 2 -------- //
-    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, 2.5f, 4f, 5f, true, 2); }
-    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, 2.5f, 4f, 5f, true, 3); }
-    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, 2.5f, 4f, 5f, true, 6); }
-    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, 2.5f, 4f, 5f, true, 12); }
-    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, 2.5f, 4f, 5f, true, 18); }
+    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2); }
+    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3); }
+    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6); }
+    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, true, 12); }
+    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, true, 18); }
 
     // -------- BATCH SPAWN -------- //
     IEnumerator SpawnBatchSequential(
         int totalRoach, int batchRoach,
         int totalGerry, int batchGerry,
-        float roachSpeed, float gerrySpeed, float viperSpeed,
         bool spawnViper = false, int totalVipers = 1)
     {
         int roachSpawned = 0;
@@ -114,17 +113,17 @@ public class WaveManager : MonoBehaviour
 
             // Spawn Roaches
             if (roachThisBatch > 0 && roachSpawner != null)
-                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, roachSpeed, spawnDelay, this, path1.position));
+                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position));
             roachSpawned += roachThisBatch;
 
             // Spawn Gerrys
             if (gerryThisBatch > 0 && gerrySpawner != null)
-                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, gerrySpeed, spawnDelay, this, path1.position));
+                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position));
             gerrySpawned += gerryThisBatch;
 
             // Spawn Vipers
             if (viperThisBatch > 0 && viperSpawner != null)
-                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, viperSpeed, spawnDelay, this, path1.position));
+                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position));
             viperSpawned += viperThisBatch;
 
             // Wait between batches
@@ -136,15 +135,14 @@ public class WaveManager : MonoBehaviour
     public void SetupEnemyPath(GameObject enemy, float speed)
     {
         if (enemy == null) return;
-
-        EnemyPathMovement path = enemy.GetComponent<EnemyPathMovement>();
-        if (path != null)
+        
+        CatPrey p = enemy.GetComponent<CatPrey>();
+        if (p != null)
         {
-            path.path1 = path1;
-            path.path2 = path2;
-            path.path3 = path3;
-            path.path4 = path4;
-            path.SetSpeed(speed);
+            p.path1 = path1;
+            p.path2 = path2;
+            p.path3 = path3;
+            p.path4 = path4;
         }
     }
 }

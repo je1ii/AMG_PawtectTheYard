@@ -49,6 +49,7 @@ public class TowerPanelUI : MonoBehaviour
                 var ct = newTower.GetComponent<CatTower>();
                 ct.AssignSlot(slotIndex);
                 ct.AssignLevel(newLevel);
+                ct.AssignAttackInterval(newLevel == 3 ? 1.2f : 1.6f);
             }
         }
     }

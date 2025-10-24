@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c30863d79a83c4993215dca0797cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
-  damage: 8
-  speed: 8
   furballPrefab: {fileID: 6865807141230216947, guid: 32b8de9706d4739449a6b4a5cc4270c9, type: 3}
 --- !u!1 &5980767277814958447
 GameObject:
@@ -127,7 +125,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1812909762875940461, guid: 3ab83d611182c2d4195e9b7703c20337, type: 3}
+  m_Sprite: {fileID: -379545985665854696, guid: 1b22fb84eb3a820479790f5eeeaf3133, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,7 +146,7 @@ Animator:
   m_GameObject: {fileID: 5980767277814958447}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: -7310615424034101625, guid: 3ab83d611182c2d4195e9b7703c20337, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3f8cae6b3d599574691b21fd32b4476e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -207,9 +205,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatTower
   meleeRange: 1
-  longRange: 2
-  attackInterval: 2
+  longRange: 2.5
   rotSpeed: 4
+  attackInterval: 2
   furballAttack: {fileID: 7650429845415221142}
   clawAttack: {fileID: 0}
   biteAttack: {fileID: 0}
