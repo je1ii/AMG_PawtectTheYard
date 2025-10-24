@@ -18,6 +18,7 @@ MonoBehaviour:
   endHealth: 200
   startSpeed: 0.8
   endSpeed: 1
+  damageToPlayer: 3
   catnipPrefab: {fileID: 346708743309321302, guid: af9afc724b6ff7449840e0fd0bcb51e7, type: 3}
   animation:
   - BDeath
