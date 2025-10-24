@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("Spawn Settings")]
     public float spawnDelay = 1.5f;
-    public float batchDelay = 12f;
+    public float batchDelay = 18f;
 
     [Header("Wave Testing (Check the wave(s) you want to run)")]
     public bool testRound1_Wave1;
@@ -33,11 +33,6 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        if (roachSpawner == null) Debug.LogWarning("WaveManager: roachSpawner not assigned!");
-        if (gerrySpawner == null) Debug.LogWarning("WaveManager: gerrySpawner not assigned!");
-        if (viperSpawner == null) Debug.LogWarning("WaveManager: viperSpawner not assigned!");
-        if (path1 == null) Debug.LogWarning("WaveManager: path1 not assigned!");
-
         StartCoroutine(HandleWaves());
     }
 
@@ -126,8 +121,22 @@ public class WaveManager : MonoBehaviour
                 yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position));
             viperSpawned += viperThisBatch;
 
-            // Wait between batches
-            yield return new WaitForSeconds(batchDelay); // GET ENEMIES BY TAG: (batchDelay || numOfEnemies == 0)
+           // Wait between batches
+            float elapsed = 0f;
+
+            // Keep checking both time and enemies
+            while (elapsed < batchDelay)
+            {
+                // If all enemies are already gone, skip the rest of the delay
+                if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+                    break;
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // After the delay (if enemies still exist), wait for them to be gone
+            yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
         }
     }
 
