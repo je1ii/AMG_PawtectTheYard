@@ -13,11 +13,6 @@ public class TowerSlot : MonoBehaviour
     //public TextMeshProUGUI costText;
     
     [HideInInspector] public TowerData currentTower;
-
-    void Start()
-    {
-        towerIcon = gameObject.GetComponentInChildren<Image>();
-    }
     
     public void SetTower(TowerData newTower)
     {
