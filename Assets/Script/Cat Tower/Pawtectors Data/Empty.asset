@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba71c1f2886e7c146a723e5fe6e6b3a8, type: 3}
   m_Name: Empty
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerName: Empty
-  towerIcon: {fileID: 0}
+  towerName: 0
+  towerIcon: {fileID: 2338054126189638475, guid: 2453f6ba1497c7d4395613dcd9bf9bc3, type: 3}
   prefab: {fileID: 0}
+  currentLevel: 0
   levelCost: 70
+  furballLevel1: 0
+  furballLevel2: 0
+  furballLevel3: 0
+  clawLevel2: 0
+  clawLevel3: 0
+  biteLevel3: 0
+  attacksBeforeBite: 0
