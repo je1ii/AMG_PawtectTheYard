@@ -22,7 +22,7 @@ public class TowerSlot : MonoBehaviour
     public void SetTower(TowerData newTower)
     {
         currentTower = newTower;
-        nameText.text = newTower.towerName;
+        nameText.text = newTower.towerName.ToString();
         //costText.text = newTower.cost.text;
         
         if(newTower.towerIcon != null)

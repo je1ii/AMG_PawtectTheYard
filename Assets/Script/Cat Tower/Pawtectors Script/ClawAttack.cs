@@ -1,36 +1,43 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ClawAttack : CatAttackBase
 {
-    public float damage = 10f;
     public int maxTargets = 3;
-    public float attackRadius = 1.5f;
-    public override bool Attack(List<Transform> enemies, Vector3 towerPos)
+    public float attackRadius = 0.8f;
+    public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) return false;
 
-        int hits = 0;
-        foreach (Transform enemy in enemies)
+        // Filter only valid melee enemies within attackRadius
+        var meleeEnemies = enemies
+            .Where(e => e != null && Vector2.Distance(e.position, towerPos) <= attackRadius)
+            .OrderBy(e => Vector2.Distance(e.position, towerPos))
+            .Take(maxTargets)
+            .ToList();
+
+        if (meleeEnemies.Count == 0)
         {
-            if (enemy == null) continue;
-
-            float distance = Vector2.Distance(enemy.position, towerPos);
-
-            if (distance <= attackRadius)
-            {
-                Debug.Log($"Claw hit {enemy.name} for {damage} damage!");
-                // enemy.GetComponent<Enemy>().TakeDamage(damage);
-                hits++;
-
-                if (hits >= maxTargets)
-                    break;
-            }
+            Debug.Log("Claw attack: no enemies in melee range");
+            return false;
         }
 
-        if (hits == 0)
-            Debug.Log("Claw attack: no enemies in melee range");
+        // Damage each one
+        foreach (var enemy in meleeEnemies)
+        {
+            var hp = enemy.GetComponentInChildren<EnemyHealthBar>();
+            if (hp == null)
+            {
+                Debug.LogWarning($"[ClawAttack] {enemy.name} has no EnemyHealthBar component!");
+                continue;
+            }
 
-        return hits > 0;
+            float damage = (towerData.currentLevel == 3) ? towerData.clawLevel3 : towerData.clawLevel2;
+            hp.TakeDamage(damage);
+            Debug.Log($"Claw hit {enemy.name} for {damage} damage!");
+        }
+
+        return true;
     }
 }
