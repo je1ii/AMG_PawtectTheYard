@@ -3,7 +3,7 @@ using UnityEngine;
 public class CatnipPickupSystem : MonoBehaviour
 {
     public CatnipData catnipData;
-    public float moveDuration = 0.5f; // Duration in seconds
+    public float moveDuration = 0.5f;
 
     private bool isMoving = false;
     private Vector3 startPos;
@@ -43,9 +43,8 @@ public class CatnipPickupSystem : MonoBehaviour
             startScale = transform.localScale;
             elapsedTime = 0f;
 
-            // Get UI target world position for Screen Space - Overlay canvas
             Vector3 uiScreenPos = CatnipDropManager.Instance.GetUITargetWorldPosition(); 
-            uiScreenPos.z = Camera.main.nearClipPlane + 1f; // small offset in front of camera
+            uiScreenPos.z = Camera.main.nearClipPlane + 1f; 
             targetWorldPos = Camera.main.ScreenToWorldPoint(uiScreenPos);
 
             isMoving = true;
