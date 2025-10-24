@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatnipData
   catnipName: catnip
   catnipValue: 15
-  catnipSprite: {fileID: 0}
+  catnipSprite: {fileID: 723430181006298293, guid: cf2206deecf1a154a8bbd3df1a583dd6, type: 3}
