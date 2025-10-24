@@ -18,6 +18,7 @@ MonoBehaviour:
   endHealth: 50
   startSpeed: 0.5
   endSpeed: 0.6
+  damageToPlayer: 0.5
   catnipPrefab: {fileID: 3913482247680535315, guid: a822bafeac9c0bd4697761adc45d934f, type: 3}
   animation:
   - Death

@@ -181,8 +181,8 @@ public class CatPrey : MonoBehaviour
         spriteRenderer.color = c;
         
         // REMOVE COMMENT TO SPAWN CATNIP
-         if (enemyData.catnipPrefab != null)
-             Instantiate(enemyData.catnipPrefab, transform.position, Quaternion.identity);
+        if (enemyData.catnipPrefab != null)
+            Instantiate(enemyData.catnipPrefab, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }
@@ -190,6 +190,7 @@ public class CatPrey : MonoBehaviour
     private void OnReachEnd()
     {
         Debug.Log($"{name} reached the end!");
+        PlayerHealth.Instance.DamagePlayer(enemyData.damageToPlayer);
         Destroy(gameObject);
     }
 }
