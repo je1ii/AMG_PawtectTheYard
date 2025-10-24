@@ -1,69 +1,58 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CameraDamageEffect : MonoBehaviour
 {
     public Camera mainCam;
-    public float shakeDuration = 0.3f;
-    public float shakeStrength = 0.2f;
-    public float flashDuration = 0.5f;
-    public Color flashColor = Color.red;
+    public float detectRange = 1f;
+    public float shakeStrength = 0.02f;
+    public float shakeTime = 0.01f; 
+    public Image redFlash; 
 
-    private Color originalColor;
-    private bool isShaking = false;
+    bool isEffectActive = false;
+    Transform path4;
+    Vector3 originalPos;
 
     void Start()
     {
-        if (mainCam == null)
-            mainCam = Camera.main;
+        if (!mainCam) mainCam = Camera.main;
+        path4 = GameObject.FindGameObjectWithTag("EndPath").transform;
+        originalPos = mainCam.transform.position;
 
-        originalColor = mainCam.backgroundColor;
+        if (redFlash != null)
+            redFlash.color = new Color(1, 0, 0, 0); 
     }
 
-    public void TriggerDamageEffect()
+    public void OnHit()
     {
-        if (!isShaking)
-            StartCoroutine(DamageEffect());
+        if (isEffectActive) return;
+
+        StartCoroutine(DoEffect());
     }
 
-    IEnumerator DamageEffect()
+    private IEnumerator DoEffect()
     {
-        // Start both shake and flash
-        StartCoroutine(CameraShake());
-        yield return StartCoroutine(CameraFlash());
-    }
+        isEffectActive = true;
 
-    IEnumerator CameraShake()
-    {
-        isShaking = true;
-        Vector3 originalPos = transform.position;
-        float elapsed = 0f;
-
-        while (elapsed < shakeDuration)
+        // Shake
+        float t = 0f;
+        while (t < shakeTime)
         {
-            elapsed += Time.deltaTime;
-            float x = Random.Range(-1f, 1f) * shakeStrength;
-            float y = Random.Range(-1f, 1f) * shakeStrength;
-            transform.position = new Vector3(originalPos.x + x, originalPos.y + y, originalPos.z);
+            t += Time.deltaTime;
+            mainCam.transform.position = originalPos + Random.insideUnitSphere * shakeStrength;
             yield return null;
         }
+        mainCam.transform.position = originalPos;
 
-        transform.position = originalPos;
-        isShaking = false;
-    }
-
-    IEnumerator CameraFlash()
-    {
-        float elapsed = 0f;
-
-        while (elapsed < flashDuration)
+        // Quick red flash
+        if (redFlash != null)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.PingPong(elapsed * 2f, 1f);
-            mainCam.backgroundColor = Color.Lerp(originalColor, flashColor, t);
-            yield return null;
+            redFlash.color = new Color(1, 0, 0, 0.4f);
+            yield return new WaitForSeconds(0.05f);
+            redFlash.color = new Color(1, 0, 0, 0);
         }
 
-        mainCam.backgroundColor = originalColor;
+        isEffectActive = false;
     }
 }
