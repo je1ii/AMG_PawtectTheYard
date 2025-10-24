@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba71c1f2886e7c146a723e5fe6e6b3a8, type: 3}
   m_Name: Tustado
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
-  towerName: Tustado
-  towerIcon: {fileID: -2154362256948729526, guid: 26f3e674cf500ee4bb1031eca251f21a, type: 3}
+  towerName: 2
+  towerIcon: {fileID: -3514825454211031996, guid: 2453f6ba1497c7d4395613dcd9bf9bc3, type: 3}
   prefab: {fileID: 5129709286297428507, guid: 5d89ec55336f38947b875d305c08fcd6, type: 3}
+  currentLevel: 2
   levelCost: 450
+  furballLevel1: 0
+  furballLevel2: 15
+  furballLevel3: 0
+  clawLevel2: 10
+  clawLevel3: 0
+  biteLevel3: 0
+  attacksBeforeBite: 0

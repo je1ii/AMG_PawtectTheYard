@@ -41,14 +41,20 @@ public class TowerPanelUI : MonoBehaviour
                 {
                     if (t.slotParent == slotIndex)
                     {
-                        if(t.gameObject != null) Destroy(t.gameObject);
+                        if (t.gameObject != null)
+                        {
+                            // eliminate null exception error
+                            t.GetComponent<CatTower>().ForceStopEverything();
+                            t.gameObject.SetActive(false);
+                        }
                     }
                 }
                 
                 var newTower = Instantiate(nextCatTower.prefab, pos);
                 var ct = newTower.GetComponent<CatTower>();
                 ct.AssignSlot(slotIndex);
-                ct.AssignLevel(newLevel);
+                ct.AssignData(catTowers[newLevel]);
+                ct.AssignAttackInterval(newLevel == 3 ? 1.2f : 1.6f);
             }
         }
     }

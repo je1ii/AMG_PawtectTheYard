@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ce8535ca4d29d4f8ec96c9a90caa1a, type: 3}
+  m_Name: Gerry
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  enemyName: 1
+  prefab: {fileID: 689556236055443379, guid: 934636eba7cda0549943042c1185252a, type: 3}
+  startHealth: 50
+  endHealth: 120
+  startSpeed: 0.6
+  endSpeed: 0.8
+  catnipPrefab: {fileID: 5879790282764469185, guid: f160b59c190a2c849a753e46f91621d7, type: 3}
+  animation:
+  - DeathL
+  - DeathR
