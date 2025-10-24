@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Maja
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: 1
-  towerIcon: {fileID: 286256669205873195, guid: 2e87a15bc5d74344ab5adccfa991dbb5, type: 3}
+  towerIcon: {fileID: -3925855798953086521, guid: 2453f6ba1497c7d4395613dcd9bf9bc3, type: 3}
   prefab: {fileID: 6726842337572283657, guid: cf791c2d9faa60649815555adc7089b0, type: 3}
   currentLevel: 1
   levelCost: 100

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Keso
   m_EditorClassIdentifier: Assembly-CSharp::TowerData
   towerName: 3
-  towerIcon: {fileID: -3930771307185428144, guid: 149e2dc088f72eb4e8e6a08dc309fef9, type: 3}
+  towerIcon: {fileID: -5198330187662785937, guid: 2453f6ba1497c7d4395613dcd9bf9bc3, type: 3}
   prefab: {fileID: 3404601160000267055, guid: f32c217f940608a46801ec88b68b841d, type: 3}
   currentLevel: 3
   levelCost: 0
