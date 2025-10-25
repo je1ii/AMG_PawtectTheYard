@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class DayManager : MonoBehaviour
@@ -17,7 +19,10 @@ public class DayManager : MonoBehaviour
         public int waveCount;
     }
 
+    [Header("UI References")]
     public TextMeshProUGUI waveCounterText;
+    public GameObject waveUI;
+    public float nextWaveDelay = 3f;
 
     private List<TimePhase> waveSchedule = new List<TimePhase>()
     {
@@ -40,10 +45,26 @@ public class DayManager : MonoBehaviour
     void Start()
     {
         UpdateUI();
+
+        if (waveUI != null)
+            waveUI.SetActive(false);
     }
 
     public void CompleteWave()
     {
+        StartCoroutine(HandleNextWaveImage());
+    }
+
+    private IEnumerator HandleNextWaveImage()
+    {
+        if (waveUI != null)
+            waveUI.SetActive(true);
+
+        yield return new WaitForSeconds(nextWaveDelay);
+
+        if (waveUI != null)
+            waveUI.SetActive(false);
+
         currentWaveInPhase++;
         currentWaveInRound++;
 
@@ -59,10 +80,8 @@ public class DayManager : MonoBehaviour
 
         if (currentWaveInRound > wavesPerRound)
         {
-            currentWaveInRound = 1; 
+            currentWaveInRound = 1;
         }
-
-        Debug.Log("[DayManager] CompleteWave called");
 
         UpdateUI();
     }
