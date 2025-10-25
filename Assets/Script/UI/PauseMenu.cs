@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused = false;
     private Vector3 targetScale;
+
+    [Header("Loading Screen")]
+    public GameObject loadingScreen;
+    public float loadingDelay = 2f;
 
     void Start()
     {
@@ -52,6 +57,25 @@ public class PauseMenu : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(LoadGameAsync("MainMenu"));
+    }
+
+    private IEnumerator LoadGameAsync(string sceneName)
+    {
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
+        
+        Time.timeScale = 1f;
+        
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        operation.allowSceneActivation = false;
+
+        while (operation.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(loadingDelay);
+        operation.allowSceneActivation = true;
     }
 }
