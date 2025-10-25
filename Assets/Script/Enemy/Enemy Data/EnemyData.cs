@@ -12,6 +12,7 @@ public class EnemyData : ScriptableObject
     public float endHealth;
     public float startSpeed;
     public float endSpeed;
+    public float damageToPlayer;
     public GameObject catnipPrefab;
     
     [Header("Animation Trigger Name")]

@@ -42,15 +42,6 @@ public class DayManager : MonoBehaviour
         UpdateUI();
     }
 
-    void Update()
-    {
-        //For testing lang!!
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CompleteWave();
-        }
-    }
-
     public void CompleteWave()
     {
         currentWaveInPhase++;
@@ -70,6 +61,8 @@ public class DayManager : MonoBehaviour
         {
             currentWaveInRound = 1; 
         }
+
+        Debug.Log("[DayManager] CompleteWave called");
 
         UpdateUI();
     }

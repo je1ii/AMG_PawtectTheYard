@@ -3,11 +3,15 @@ using UnityEngine;
 public class CatnipPickupSystem : MonoBehaviour
 {
     public CatnipData catnipData;
-    
-    public float moveSpeed = 0.1f;
+    public float moveDuration = 0.5f;
+
     private bool isMoving = false;
+    private Vector3 startPos;
     private Vector3 targetWorldPos;
-    
+    private Vector3 startScale;
+    private Vector3 endScale = Vector3.zero;
+    private float elapsedTime = 0f;
+
     public void InitializeDrop(CatnipData dropData)
     {
         catnipData = dropData;
@@ -17,23 +21,17 @@ public class CatnipPickupSystem : MonoBehaviour
     {
         if (!isMoving) return;
 
-        int fastForwardSteps = 10; 
-        float lerpFactor = Time.deltaTime * moveSpeed;
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / moveDuration);
+        t = Mathf.SmoothStep(0f, 1f, t);
 
-        Vector3 startScale = Vector3.one;
-        Vector3 endScale = Vector3.zero;
+        transform.position = Vector3.Lerp(startPos, targetWorldPos, t);
+        transform.localScale = Vector3.Lerp(startScale, endScale, t);
 
-        for (int i = 0; i < fastForwardSteps; i++)
+        if (t >= 1f)
         {
-            transform.position = Vector3.Lerp(transform.position, targetWorldPos, lerpFactor);
-            transform.localScale = Vector3.Lerp(transform.localScale, endScale, lerpFactor);
-
-            if (Vector3.Distance(transform.position, targetWorldPos) < 0.01f)
-            {
-                isMoving = false;
-                OnReachUI();
-                break; 
-            }
+            isMoving = false;
+            OnReachUI();
         }
     }
 
@@ -41,9 +39,15 @@ public class CatnipPickupSystem : MonoBehaviour
     {
         if (!isMoving)
         {
-            targetWorldPos = CatnipDropManager.Instance.GetUITargetWorldPosition();
-            isMoving = true;
+            startPos = transform.position;
+            startScale = transform.localScale;
+            elapsedTime = 0f;
 
+            Vector3 uiScreenPos = CatnipDropManager.Instance.GetUITargetWorldPosition(); 
+            uiScreenPos.z = Camera.main.nearClipPlane + 1f; 
+            targetWorldPos = Camera.main.ScreenToWorldPoint(uiScreenPos);
+
+            isMoving = true;
             Debug.Log("Catnip has been picked");
         }
     }
@@ -54,3 +58,5 @@ public class CatnipPickupSystem : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
+
