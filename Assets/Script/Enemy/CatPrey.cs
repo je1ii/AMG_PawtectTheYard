@@ -190,6 +190,7 @@ public class CatPrey : MonoBehaviour
     private void OnReachEnd()
     {
         Debug.Log($"{name} reached the end!");
+        PlayerHealth.Instance.DamagePlayer(enemyData.damageToPlayer);
         Destroy(gameObject);
     }
 }
