@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class DayManager : MonoBehaviour
 {
@@ -24,14 +26,19 @@ public class DayManager : MonoBehaviour
     public GameObject waveUI;
     public float nextWaveDelay = 3f;
 
+    [Header("Post Processing")]
+    public Volume postProcessVolume;
+    public VolumeProfile morningProfile;
+    public VolumeProfile afternoonProfile;
+    public VolumeProfile eveningProfile;
+
     private List<TimePhase> waveSchedule = new List<TimePhase>()
     {
         // Round 1
         new TimePhase { timeOfDay = TimeOfDay.Morning, waveCount = 3 },
         new TimePhase { timeOfDay = TimeOfDay.Afternoon, waveCount = 2 },
         // Round 2
-        new TimePhase { timeOfDay = TimeOfDay.Afternoon, waveCount = 2 },
-        new TimePhase { timeOfDay = TimeOfDay.Evening, waveCount = 3 },
+        new TimePhase { timeOfDay = TimeOfDay.Evening, waveCount = 5 },
     };
 
     private int currentScheduleIndex = 0;
@@ -45,6 +52,7 @@ public class DayManager : MonoBehaviour
     void Start()
     {
         UpdateUI();
+        UpdatePostProcessing();
 
         if (waveUI != null)
             waveUI.SetActive(false);
@@ -76,6 +84,8 @@ public class DayManager : MonoBehaviour
                 currentScheduleIndex = 0;
 
             currentWaveInPhase = 1;
+
+            UpdatePostProcessing();
         }
 
         if (currentWaveInRound > wavesPerRound)
@@ -93,6 +103,24 @@ public class DayManager : MonoBehaviour
             waveCounterText.text =
                 $"Time of Day: {currentTimeOfDay}\n" +
                 $"Wave: {currentWaveInRound} / {wavesPerRound}";
+        }
+    }
+
+    void UpdatePostProcessing()
+    {
+        if (postProcessVolume == null) return;
+
+        switch (currentTimeOfDay)
+        {
+            case TimeOfDay.Morning:
+                postProcessVolume.profile = morningProfile;
+                break;
+            case TimeOfDay.Afternoon:
+                postProcessVolume.profile = afternoonProfile;
+                break;
+            case TimeOfDay.Evening:
+                postProcessVolume.profile = eveningProfile;
+                break;
         }
     }
 }

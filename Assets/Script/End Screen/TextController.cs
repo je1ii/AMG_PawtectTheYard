@@ -9,6 +9,10 @@ public class TextController : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI continueText;
 
+    [Header("Loading Screen")]
+    public GameObject loadingScreen;
+    public float loadingDelay = 2f;
+
     [Header("Settings")]
     public float typingSpeed = 0.02f;
 
@@ -70,10 +74,18 @@ public class TextController : MonoBehaviour
             continueText.text = "";
             Debug.Log("Dialogue ended!");
             
-            // insert loading scene before going back to menu
-            
-            // back to menu
-            SceneManager.LoadScene("MainMenu");
+            //loading scene before going back to menu
+            StartCoroutine(LoadMainMenuWithScreen());
         }
+    }
+
+    private IEnumerator LoadMainMenuWithScreen()
+    {
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
+
+        yield return new WaitForSeconds(loadingDelay);
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

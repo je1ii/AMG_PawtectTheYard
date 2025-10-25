@@ -5,7 +5,8 @@ using System.Collections;
 public class MainMenu : MonoBehaviour
 {
     [Header("Loading Screen")]
-    public GameObject loadingScreen; // Assign your animated loading screen here
+    public GameObject loadingScreen;
+    public float loadingDelay = 2f;
 
     public void StartGame()
     {
@@ -14,30 +15,35 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        QuitGameWithLoading();
     }
 
     private IEnumerator LoadGameAsync(string sceneName)
     {
-        // Show your animated loading screen
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
 
-        // Begin loading the scene asynchronously
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         operation.allowSceneActivation = false;
 
-        // Wait until the scene is ready (progress reaches 0.9)
         while (operation.progress < 0.9f)
         {
             yield return null;
         }
 
-        // Optional: wait a short time to let animation play if needed
         yield return new WaitForSeconds(2f);
 
-        // Activate the new scene
         operation.allowSceneActivation = true;
+    }
+
+    private IEnumerator QuitGameWithLoading()
+    {
+        if (loadingScreen != null)
+            loadingScreen.SetActive(true);
+
+        yield return new WaitForSeconds(loadingDelay);
+
+        Application.Quit();
     }
 }
 

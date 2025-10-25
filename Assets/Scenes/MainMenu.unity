@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   loadingScreen: {fileID: 1310799795}
+  loadingDelay: 2
 --- !u!4 &102710835
 Transform:
   m_ObjectHideFlags: 0
