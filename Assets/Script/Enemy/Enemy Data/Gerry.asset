@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: 1
   prefab: {fileID: 689556236055443379, guid: 934636eba7cda0549943042c1185252a, type: 3}
-  startHealth: 50
-  endHealth: 120
-  startSpeed: 0.6
-  endSpeed: 0.8
+  startHealth: 40
+  endHealth: 100
+  startSpeed: 0.5
+  endSpeed: 0.7
   damageToPlayer: 1
   catnipPrefab: {fileID: 5879790282764469185, guid: f160b59c190a2c849a753e46f91621d7, type: 3}
   animation:

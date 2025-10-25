@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
@@ -82,6 +83,8 @@ public class WaveManager : MonoBehaviour
             yield return StartCoroutine(HandleWaves(Round2_Wave4)); yield return new WaitForSeconds(5f);
             yield return StartCoroutine(HandleWaves(Round2_Wave5));
         }
+
+        CheckForVictory();
     }
 
     // -------- ROUND 1 -------- //
@@ -163,5 +166,17 @@ public class WaveManager : MonoBehaviour
             p.path3 = path3;
             p.path4 = path4;
         }
+    }
+
+    void CheckForVictory()
+    {
+        StartCoroutine(WaitAndLoadVictoryScene());
+    }
+
+    IEnumerator WaitAndLoadVictoryScene()
+    {
+        yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+
+        SceneManager.LoadScene("Victory");
     }
 }
