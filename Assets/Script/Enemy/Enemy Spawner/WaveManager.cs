@@ -85,24 +85,24 @@ public class WaveManager : MonoBehaviour
     }
 
     // -------- ROUND 1 -------- //
-    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0); }
-    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1); }
-    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2); }
-    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4); }
-    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true); }
+    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0, false, 0, false); }
+    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1, false, 0, false); }
+    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2, false, 0, false); }
+    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4, false, 0, false); }
+    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true, 1, false); }
 
-    // -------- ROUND 2 -------- // INSERT ENEMY'S END STATS
-    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2); }
-    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3); }
-    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6); }
-    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, true, 12); }
-    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, true, 18); }
+    // -------- ROUND 2 -------- // 
+    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2, true); }
+    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3, true); }
+    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6, true); }
+    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, true, 12, true); }
+    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, true, 18, true); }
 
     // -------- BATCH SPAWN -------- //
     IEnumerator SpawnBatchSequential(
         int totalRoach, int batchRoach,
         int totalGerry, int batchGerry,
-        bool spawnViper = false, int totalVipers = 1)
+        bool spawnViper, int totalVipers, bool isRound2)
     {
         int roachSpawned = 0;
         int gerrySpawned = 0;
@@ -118,17 +118,17 @@ public class WaveManager : MonoBehaviour
 
             // Spawn Roaches
             if (roachThisBatch > 0 && roachSpawner != null)
-                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position));
+                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position, isRound2));
             roachSpawned += roachThisBatch;
 
             // Spawn Gerrys
             if (gerryThisBatch > 0 && gerrySpawner != null)
-                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position));
+                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position, isRound2));
             gerrySpawned += gerryThisBatch;
 
             // Spawn Vipers
             if (viperThisBatch > 0 && viperSpawner != null)
-                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position));
+                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position, isRound2));
             viperSpawned += viperThisBatch;
 
            // Wait between batches
