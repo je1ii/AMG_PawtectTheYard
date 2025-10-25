@@ -14,6 +14,9 @@ public class WaveManager : MonoBehaviour
     public Transform path3;
     public Transform path4;
 
+    [Header("Day Manager Reference")]
+    public DayManager dayManager;
+
     [Header("Spawn Settings")]
     public float spawnDelay = 1.5f;
     public float batchDelay = 18f;
@@ -36,21 +39,28 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(HandleWaves());
     }
 
+    IEnumerator HandleWaves(System.Func<IEnumerator> waveRoutine)
+    {
+        yield return StartCoroutine(waveRoutine());
+        if (dayManager != null)
+            dayManager.CompleteWave();
+    }
+
     IEnumerator HandleWaves()
     {
         // --- Round 1 ---
-        if (testRound1_Wave1) yield return StartCoroutine(Round1_Wave1());
-        if (testRound1_Wave2) yield return StartCoroutine(Round1_Wave2());
-        if (testRound1_Wave3) yield return StartCoroutine(Round1_Wave3());
-        if (testRound1_Wave4) yield return StartCoroutine(Round1_Wave4());
-        if (testRound1_Wave5) yield return StartCoroutine(Round1_Wave5());
+        if (testRound1_Wave1) yield return StartCoroutine(HandleWaves(Round1_Wave1));
+        if (testRound1_Wave2) yield return StartCoroutine(HandleWaves(Round1_Wave2));
+        if (testRound1_Wave3) yield return StartCoroutine(HandleWaves(Round1_Wave3));
+        if (testRound1_Wave4) yield return StartCoroutine(HandleWaves(Round1_Wave4));
+        if (testRound1_Wave5) yield return StartCoroutine(HandleWaves(Round1_Wave5));
 
         // --- Round 2 ---
-        if (testRound2_Wave1) yield return StartCoroutine(Round2_Wave1());
-        if (testRound2_Wave2) yield return StartCoroutine(Round2_Wave2());
-        if (testRound2_Wave3) yield return StartCoroutine(Round2_Wave3());
-        if (testRound2_Wave4) yield return StartCoroutine(Round2_Wave4());
-        if (testRound2_Wave5) yield return StartCoroutine(Round2_Wave5());
+        if (testRound2_Wave1) yield return StartCoroutine(HandleWaves(Round2_Wave1));
+        if (testRound2_Wave2) yield return StartCoroutine(HandleWaves(Round2_Wave2));
+        if (testRound2_Wave3) yield return StartCoroutine(HandleWaves(Round2_Wave3));
+        if (testRound2_Wave4) yield return StartCoroutine(HandleWaves(Round2_Wave4));
+        if (testRound2_Wave5) yield return StartCoroutine(HandleWaves(Round2_Wave5));
 
         // Default play if no test flags are active (Round 1 W1-5 - Round 2 W1-5)
         if (!testRound1_Wave1 && !testRound1_Wave2 && !testRound1_Wave3 &&
@@ -59,18 +69,18 @@ public class WaveManager : MonoBehaviour
             !testRound2_Wave4 && !testRound2_Wave5)
         {
             // Round 1
-            yield return StartCoroutine(Round1_Wave1()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round1_Wave2()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round1_Wave3()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round1_Wave4()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round1_Wave5()); yield return new WaitForSeconds(10f);
+            yield return StartCoroutine(HandleWaves(Round1_Wave1)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round1_Wave2)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round1_Wave3)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round1_Wave4)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round1_Wave5)); yield return new WaitForSeconds(10f);
 
             // Round 2
-            yield return StartCoroutine(Round2_Wave1()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round2_Wave2()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round2_Wave3()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round2_Wave4()); yield return new WaitForSeconds(5f);
-            yield return StartCoroutine(Round2_Wave5());
+            yield return StartCoroutine(HandleWaves(Round2_Wave1)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round2_Wave2)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round2_Wave3)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round2_Wave4)); yield return new WaitForSeconds(5f);
+            yield return StartCoroutine(HandleWaves(Round2_Wave5));
         }
     }
 

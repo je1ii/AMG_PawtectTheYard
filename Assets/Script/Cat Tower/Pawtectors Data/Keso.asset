@@ -23,4 +23,4 @@ MonoBehaviour:
   clawLevel2: 0
   clawLevel3: 20
   biteLevel3: 80
-  attacksBeforeBite: 6
+  attacksBeforeBite: 20
