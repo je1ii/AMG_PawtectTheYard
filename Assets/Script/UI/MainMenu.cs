@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        QuitGameWithLoading();
+        StartCoroutine(QuitGameWithLoading());
     }
 
     private IEnumerator LoadGameAsync(string sceneName)

@@ -16,8 +16,8 @@ MonoBehaviour:
   prefab: {fileID: 8787472494681764484, guid: aa89030dda3520a478348913c42d5c3f, type: 3}
   startHealth: 100
   endHealth: 200
-  startSpeed: 0.8
-  endSpeed: 1
+  startSpeed: 0.7
+  endSpeed: 0.8
   damageToPlayer: 3
   catnipPrefab: {fileID: 346708743309321302, guid: af9afc724b6ff7449840e0fd0bcb51e7, type: 3}
   animation:
