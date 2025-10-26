@@ -22,6 +22,11 @@ public class WaveManager : MonoBehaviour
     public float spawnDelay = 1.5f;
     public float batchDelay = 18f;
 
+    [Header("Spawn Sound Effects")]
+    public AudioSource roachSpawnSound;
+    public AudioSource gerrySpawnSound;
+    public AudioSource viperSpawnSound;
+
     [Header("Wave Testing (Check the wave(s) you want to run)")]
     public bool testRound1_Wave1;
     public bool testRound1_Wave2;
@@ -114,33 +119,39 @@ public class WaveManager : MonoBehaviour
         // Repeat until all totals are met
         while (roachSpawned < totalRoach || gerrySpawned < totalGerry || (spawnViper && viperSpawned < totalVipers))
         {
-            // Spawn batch sequentially: Roach, Gerry, Viper 
             int roachThisBatch = Mathf.Min(batchRoach, totalRoach - roachSpawned);
             int gerryThisBatch = Mathf.Min(batchGerry, totalGerry - gerrySpawned);
             int viperThisBatch = spawnViper ? Mathf.Min(3, totalVipers - viperSpawned) : 0;
 
-            // Spawn Roaches
+            // --- Spawn Roaches ---
             if (roachThisBatch > 0 && roachSpawner != null)
+            {
+                if (roachSpawnSound != null) roachSpawnSound.Play();
                 yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position, isRound2));
+            }
             roachSpawned += roachThisBatch;
 
-            // Spawn Gerrys
+            // --- Spawn Gerrys ---
             if (gerryThisBatch > 0 && gerrySpawner != null)
+            {
+                if (gerrySpawnSound != null) gerrySpawnSound.Play();
                 yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position, isRound2));
+            }
             gerrySpawned += gerryThisBatch;
 
-            // Spawn Vipers
+            // --- Spawn Vipers ---
             if (viperThisBatch > 0 && viperSpawner != null)
+            {
+                if (viperSpawnSound != null) viperSpawnSound.Play();
                 yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position, isRound2));
+            }
             viperSpawned += viperThisBatch;
 
-           // Wait between batches
+            // Wait between batches
             float elapsed = 0f;
 
-            // Keep checking both time and enemies
             while (elapsed < batchDelay)
             {
-                // If all enemies are already gone, skip the rest of the delay
                 if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
                     break;
 
@@ -148,7 +159,6 @@ public class WaveManager : MonoBehaviour
                 yield return null;
             }
 
-            // After the delay (if enemies still exist), wait for them to be gone
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
         }
     }
@@ -157,7 +167,7 @@ public class WaveManager : MonoBehaviour
     public void SetupEnemyPath(GameObject enemy, float speed)
     {
         if (enemy == null) return;
-        
+
         CatPrey p = enemy.GetComponent<CatPrey>();
         if (p != null)
         {
@@ -176,7 +186,6 @@ public class WaveManager : MonoBehaviour
     IEnumerator WaitAndLoadVictoryScene()
     {
         yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
-
         SceneManager.LoadScene("Victory");
     }
 }

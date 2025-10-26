@@ -21,12 +21,22 @@ public class CatPrey : MonoBehaviour
     private bool isDead = false;
     private Animator animator;
 
+    private AudioSource roachDeathSFX;
+    private AudioSource gerryDeathSFX;
+    private AudioSource viperDeathSFX;
+    private AudioSource catnipDropSFX; 
+
     public void SetData(EnemyData data) => enemyData = data;
 
     private void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponentInChildren<Animator>();
+
+        roachDeathSFX = GameObject.Find("SFX Roach Death")?.GetComponent<AudioSource>();
+        gerryDeathSFX = GameObject.Find("SFX Gerry Death")?.GetComponent<AudioSource>();
+        viperDeathSFX = GameObject.Find("SFX Viper Death")?.GetComponent<AudioSource>();
+        catnipDropSFX = GameObject.Find("SFX Catnip Drop")?.GetComponent<AudioSource>(); 
 
         if (enemyData == null)
         {
@@ -41,13 +51,11 @@ public class CatPrey : MonoBehaviour
     private void Update()
     {
         if (isDead || enemyData == null) return;
-
         MoveAlongCurvePath(enemyData.startSpeed);
     }
 
     private void CalculatePathLength()
     {
-        // Approximate curve path for timing consistency
         float vLength = Vector3.Distance(path2.position, (path2.position + path3.position) / 2f + Vector3.down * curveDepth)
                       + Vector3.Distance((path2.position + path3.position) / 2f + Vector3.down * curveDepth, path3.position);
 
@@ -74,13 +82,11 @@ public class CatPrey : MonoBehaviour
 
         if (traveledDistance <= dist12)
         {
-            // Path 1 → 2 (straight)
             float t = traveledDistance / dist12;
             newPos = Vector3.Lerp(path1.position, path2.position, t);
         }
         else if (traveledDistance <= dist12 + dist23)
         {
-            // Path 2 → 3 (curved)
             float t = (traveledDistance - dist12) / dist23;
 
             Vector3 start = path2.position + startOffset;
@@ -91,17 +97,13 @@ public class CatPrey : MonoBehaviour
         }
         else
         {
-            // Path 3 → 4 (straight)
             float t = (traveledDistance - dist12 - dist23) / dist34;
             newPos = Vector3.Lerp(path3.position + startOffset, path4.position + startOffset, t);
         }
 
-        // Rotate toward next position
         Vector3 dir = newPos - transform.position;
         if (dir != Vector3.zero)
-        {
             RotateTowardDirection(dir.normalized);
-        }
 
         transform.position = newPos;
     }
@@ -136,14 +138,15 @@ public class CatPrey : MonoBehaviour
         {
             case EnemyName.Roach:
                 animator.SetTrigger(enemyData.animation[0]);
+                if (roachDeathSFX != null) roachDeathSFX.Play();
                 break;
             case EnemyName.Gerry:
-                // pick random animation
                 animator.SetTrigger(enemyData.animation[Random.Range(0, enemyData.animation.Length)]);
+                if (gerryDeathSFX != null) gerryDeathSFX.Play();
                 break;
             case EnemyName.Viper:
-                // brown 0 (not set), green 1
                 animator.SetTrigger(enemyData.animation[1]);
+                if (viperDeathSFX != null) viperDeathSFX.Play();
                 break;
         }
 
@@ -154,9 +157,8 @@ public class CatPrey : MonoBehaviour
     {
         CanvasGroup cg = GetComponentInChildren<CanvasGroup>();
         Color c = spriteRenderer.color;
-        
-        // Fade controller
-        float fadeDuration = 1f; 
+
+        float fadeDuration = 1f;
         float elapsed = 0f;
 
         while (elapsed < fadeDuration)
@@ -164,23 +166,22 @@ public class CatPrey : MonoBehaviour
             elapsed += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
 
-            // Fade enemy's sprite
             c.a = alpha;
             spriteRenderer.color = c;
 
-            // Fade UI if it exists
             if (cg != null)
                 cg.alpha = alpha;
 
             yield return null;
         }
 
-        // Ensure fully transparent at the end
         if (cg != null) cg.alpha = 0f;
         c.a = 0f;
         spriteRenderer.color = c;
-        
-        // REMOVE COMMENT TO SPAWN CATNIP
+
+        if (catnipDropSFX != null)
+            catnipDropSFX.Play();
+
         if (enemyData.catnipPrefab != null)
             Instantiate(enemyData.catnipPrefab, transform.position, Quaternion.identity);
 
@@ -190,7 +191,6 @@ public class CatPrey : MonoBehaviour
     private void OnReachEnd()
     {
         Debug.Log($"{name} reached the end!");
-        PlayerHealth.Instance.DamagePlayer(enemyData.damageToPlayer);
         Destroy(gameObject);
     }
 }

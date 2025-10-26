@@ -6,6 +6,16 @@ public class ClawAttack : CatAttackBase
 {
     public int maxTargets = 3;
     public float attackRadius = 0.8f;
+
+    private AudioSource clawSwipeSFX;
+
+    private void Start()
+    {
+        clawSwipeSFX = GameObject.Find("Claw Swipe")?.GetComponent<AudioSource>();
+        if (clawSwipeSFX == null)
+            Debug.LogWarning("Claw Swipe not found in scene!");
+    }
+
     public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) return false;
@@ -23,7 +33,9 @@ public class ClawAttack : CatAttackBase
             return false;
         }
 
-        // Damage each one
+        if (clawSwipeSFX != null)
+            clawSwipeSFX.Play();
+
         foreach (var enemy in meleeEnemies)
         {
             var hp = enemy.GetComponentInChildren<EnemyHealthBar>();
