@@ -3876,7 +3876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5366a573621f77f498b7e34c594b4886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatnipManager
-  startingCatnip: 9999
+  startingCatnip: 80
   catnipText: {fileID: 2117705159}
 --- !u!114 &889878951
 MonoBehaviour:
