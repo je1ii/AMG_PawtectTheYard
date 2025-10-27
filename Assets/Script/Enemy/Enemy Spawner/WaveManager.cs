@@ -196,6 +196,7 @@ public class WaveManager : MonoBehaviour
             loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
         yield return new WaitForSeconds(1f);
         
+        yield return new WaitForSeconds(4f);
         SceneManager.LoadScene("Victory");
     }
 }

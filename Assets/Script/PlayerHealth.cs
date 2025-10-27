@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     public bool isHalfHealth;
     public bool canDie;
 
+    public GameObject gameOverUI;
     public GameObject loadingAnim;
     
     public AudioSource scream1;
@@ -69,7 +70,10 @@ public class PlayerHealth : MonoBehaviour
     
     private IEnumerator PlayerDied()
     {
-        // show game over menu
+        if (gameOverUI != null)
+            gameOverUI.SetActive(true);
+        yield return new WaitForSeconds(2f);
+
         death.Play();
         
         if(loadingAnim!=null) 
