@@ -4,22 +4,44 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
-    [Header("Loading Screen")]
+    [Header("Loading Screen")] 
+    public GameObject loadingAnim;
     public GameObject loadingScreen;
     public float loadingDelay = 2f;
 
+    [Header("SFX")]
+    public AudioSource clickBTN;
+    public AudioSource backBTN;
+    public AudioSource themeSong;
+
+    void Start()
+    {
+        if (loadingAnim.activeInHierarchy == false)loadingAnim.SetActive(true);
+    }
+
     public void StartGame()
     {
+        if(clickBTN != null) clickBTN.Play();
+        
         StartCoroutine(LoadGameAsync("Game"));
+        
+        if(clickBTN != null) themeSong.Stop();
     }
 
     public void QuitGame()
     {
+        if(backBTN != null) backBTN.Play();
         StartCoroutine(QuitGameWithLoading());
+        if(clickBTN != null) themeSong.Stop();
     }
 
     private IEnumerator LoadGameAsync(string sceneName)
     {
+        if(loadingAnim!=null) 
+            loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
+        
+        yield return new WaitForSeconds(1f);
+        
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
 
@@ -38,10 +60,10 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator QuitGameWithLoading()
     {
-        if (loadingScreen != null)
-            loadingScreen.SetActive(true);
-
-        yield return new WaitForSeconds(loadingDelay);
+        if(loadingAnim!=null) 
+            loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
+        
+        yield return new WaitForSeconds(1f);
 
         Application.Quit();
     }

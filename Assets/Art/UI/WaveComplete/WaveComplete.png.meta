@@ -136,10 +136,10 @@ TextureImporter:
       name: WaveComplete_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
-        width: 128
-        height: 128
+        x: 48
+        y: 186
+        width: 50
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,12 +158,12 @@ TextureImporter:
       name: WaveComplete_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
-        width: 128
-        height: 128
+        x: 176
+        y: 186
+        width: 50
+        height: 20
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -180,12 +180,12 @@ TextureImporter:
       name: WaveComplete_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 176
+        y: 57
+        width: 50
+        height: 21
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -199,23 +199,23 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WaveComplete_3
+      name: WaveComplete_6
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
+        x: 48
+        y: 58
+        width: 50
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: dc8ae939c653957d0800000000000000
-      internalID: -2929251342178408243
+      spriteID: d0ea7a356dd8a894d9fa87fe4a8f9221
+      internalID: -1166524750
       vertices: []
       indices: 
       edges: []
@@ -234,12 +234,20 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":2.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       WaveComplete_0: 3861549842514340355
       WaveComplete_1: -5953481811540383004
+      WaveComplete_10: -645057279
+      WaveComplete_11: -1399323248
       WaveComplete_2: -4555246244598748847
       WaveComplete_3: -2929251342178408243
+      WaveComplete_4: -1890773969
+      WaveComplete_5: -548638380
+      WaveComplete_6: -1166524750
+      WaveComplete_7: -496304580
+      WaveComplete_8: -1245942704
+      WaveComplete_9: -1008937290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

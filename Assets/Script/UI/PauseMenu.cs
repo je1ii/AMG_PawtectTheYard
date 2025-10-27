@@ -11,9 +11,12 @@ public class PauseMenu : MonoBehaviour
     private bool isPaused = false;
     private Vector3 targetScale;
 
-    private AudioSource themeSong;
+    private AudioSource resumeBTN;
+    private AudioSource quitBTN;
+    private AudioSource ambienceSFX;
 
-    [Header("Loading Screen")]
+    [Header("Loading Screen")] 
+    public GameObject loadingAnim;
     public GameObject loadingScreen;
     public float loadingDelay = 2f;
 
@@ -22,21 +25,10 @@ public class PauseMenu : MonoBehaviour
         pauseScreen.transform.localScale = Vector3.zero;
         targetScale = Vector3.zero;
         Time.timeScale = 1f;
-
-        GameObject themeObj = GameObject.Find("Theme Song");
-        if (themeObj != null)
-        {
-            themeSong = themeObj.GetComponent<AudioSource>();
-            if (themeSong != null)
-            {
-                themeSong.loop = true;
-                themeSong.Play();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Theme Song object not found in scene!");
-        }
+        
+        resumeBTN = GameObject.Find("Click Button").GetComponent<AudioSource>();
+        quitBTN = GameObject.Find("Back Button").GetComponent<AudioSource>();
+        ambienceSFX = GameObject.Find("SFX Nature Ambience").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -50,14 +42,15 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        if(resumeBTN!=null) resumeBTN.Play();
         if (!isPaused)
         {
             Time.timeScale = 0f;
             targetScale = Vector3.one;
             isPaused = true;
 
-            if (themeSong != null)
-                themeSong.Pause();
+            if (ambienceSFX != null)
+                ambienceSFX.Pause();
 
             GameObject openPauseObj = GameObject.Find("Open Pause Menu");
             if (openPauseObj != null)
@@ -77,28 +70,37 @@ public class PauseMenu : MonoBehaviour
             targetScale = Vector3.zero;
             isPaused = false;
 
-            if (themeSong != null)
-                themeSong.UnPause();
+            if (ambienceSFX != null)
+                ambienceSFX.UnPause();
         }
     }
 
     public void ResumeGame()
     {
+        if(resumeBTN!=null) resumeBTN.Play();
         Time.timeScale = 1f;
         targetScale = Vector3.zero;
         isPaused = false;
 
-        if (themeSong != null)
-            themeSong.UnPause();
+        if (ambienceSFX != null)
+            ambienceSFX.UnPause();
     }
 
     public void BackToMainMenu()
     {
+        if(resumeBTN!=null) quitBTN.Play();
+        
+        Time.timeScale = 1f;
+        if (loadingAnim != null)
+            loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
+        
         StartCoroutine(LoadGameAsync("MainMenu"));
     }
 
     private IEnumerator LoadGameAsync(string sceneName)
     {
+        yield return new WaitForSecondsRealtime(1f);
+        
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
 

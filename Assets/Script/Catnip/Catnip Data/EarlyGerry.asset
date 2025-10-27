@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff2d79c2a165389499644eae9cf4cf70, type: 3}
-  m_Name: CatnipData(5)
+  m_Name: EarlyGerry
   m_EditorClassIdentifier: Assembly-CSharp::CatnipData
-  catnipName: catnip
-  catnipValue: 5
-  catnipSprite: {fileID: 8932041649592714817, guid: fec912d4b4961cc41aa19317d5a826f6, type: 3}
+  catnipName: 15 Catnip
+  catnipValue: 15
+  catnipSprite: {fileID: 723430181006298293, guid: cf2206deecf1a154a8bbd3df1a583dd6, type: 3}

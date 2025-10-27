@@ -15,8 +15,9 @@ public class WaveManager : MonoBehaviour
     public Transform path3;
     public Transform path4;
 
-    [Header("Day Manager Reference")]
+    [Header("Other Reference")]
     public DayManager dayManager;
+    public GameObject loadingAnim;
 
     [Header("Spawn Settings")]
     public float spawnDelay = 1.5f;
@@ -42,6 +43,7 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
+        if (loadingAnim.activeInHierarchy == false)loadingAnim.SetActive(true);
         StartCoroutine(HandleWaves());
     }
 
@@ -54,6 +56,9 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator HandleWaves()
     {
+        // loading anim
+        yield return new WaitForSeconds(3f);
+        
         // --- Round 1 ---
         if (testRound1_Wave1) yield return StartCoroutine(HandleWaves(Round1_Wave1));
         if (testRound1_Wave2) yield return StartCoroutine(HandleWaves(Round1_Wave2));
@@ -93,24 +98,24 @@ public class WaveManager : MonoBehaviour
     }
 
     // -------- ROUND 1 -------- //
-    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0, false, 0, false); }
-    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1, false, 0, false); }
-    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2, false, 0, false); }
-    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4, false, 0, false); }
-    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true, 1, false); }
+    IEnumerator Round1_Wave1() { yield return SpawnBatchSequential(12, 4, 0, 0, false, 0, false, false); }
+    IEnumerator Round1_Wave2() { yield return SpawnBatchSequential(12, 3, 4, 1, false, 0, false, false); }
+    IEnumerator Round1_Wave3() { yield return SpawnBatchSequential(20, 4, 10, 2, false, 0, false, false); }
+    IEnumerator Round1_Wave4() { yield return SpawnBatchSequential(8, 2, 16, 4, false, 0, true, false); }
+    IEnumerator Round1_Wave5() { yield return SpawnBatchSequential(8, 2, 16, 4, true, 1, true, false); }
 
     // -------- ROUND 2 -------- // 
-    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2, true); }
-    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3, true); }
-    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6, true); }
-    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, true, 12, true); }
-    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, true, 18, true); }
+    IEnumerator Round2_Wave1() { yield return SpawnBatchSequential(10, 2, 20, 4, true, 2, true, false); }
+    IEnumerator Round2_Wave2() { yield return SpawnBatchSequential(20, 4, 20, 4, true, 3, true, false); }
+    IEnumerator Round2_Wave3() { yield return SpawnBatchSequential(24, 4, 24, 4, true, 6, false, true); }
+    IEnumerator Round2_Wave4() { yield return SpawnBatchSequential(30, 5, 30, 5, true, 12, false, true); }
+    IEnumerator Round2_Wave5() { yield return SpawnBatchSequential(36, 6, 36, 6, true, 18, false, true); }
 
     // -------- BATCH SPAWN -------- //
     IEnumerator SpawnBatchSequential(
         int totalRoach, int batchRoach,
         int totalGerry, int batchGerry,
-        bool spawnViper, int totalVipers, bool isRound2)
+        bool spawnViper, int totalVipers, bool isMidGame,bool isEndGame)
     {
         int roachSpawned = 0;
         int gerrySpawned = 0;
@@ -127,7 +132,7 @@ public class WaveManager : MonoBehaviour
             if (roachThisBatch > 0 && roachSpawner != null)
             {
                 if (roachSpawnSound != null) roachSpawnSound.Play();
-                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position, isRound2));
+                yield return StartCoroutine(roachSpawner.SpawnRoachBatch(roachThisBatch, roachThisBatch, spawnDelay, this, path1.position, isMidGame, isEndGame));
             }
             roachSpawned += roachThisBatch;
 
@@ -135,7 +140,7 @@ public class WaveManager : MonoBehaviour
             if (gerryThisBatch > 0 && gerrySpawner != null)
             {
                 if (gerrySpawnSound != null) gerrySpawnSound.Play();
-                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position, isRound2));
+                yield return StartCoroutine(gerrySpawner.SpawnGerryBatch(gerryThisBatch, gerryThisBatch, spawnDelay, this, path1.position, isMidGame, isEndGame));
             }
             gerrySpawned += gerryThisBatch;
 
@@ -143,7 +148,7 @@ public class WaveManager : MonoBehaviour
             if (viperThisBatch > 0 && viperSpawner != null)
             {
                 if (viperSpawnSound != null) viperSpawnSound.Play();
-                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position, isRound2));
+                yield return StartCoroutine(viperSpawner.SpawnViperBatch(viperThisBatch, viperThisBatch, spawnDelay, this, path1.position, isMidGame, isEndGame));
             }
             viperSpawned += viperThisBatch;
 
@@ -186,6 +191,11 @@ public class WaveManager : MonoBehaviour
     IEnumerator WaitAndLoadVictoryScene()
     {
         yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("Enemy").Length == 0);
+        
+        if(loadingAnim!=null) 
+            loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
+        yield return new WaitForSeconds(1f);
+        
         SceneManager.LoadScene("Victory");
     }
 }

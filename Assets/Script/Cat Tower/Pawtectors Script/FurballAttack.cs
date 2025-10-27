@@ -6,6 +6,7 @@ using UnityEngine;
 public class FurballAttack : CatAttackBase
 {
     public GameObject furballPrefab;
+    public Transform furballSpawn;
 
     private AudioSource furballAttackSFX;
 
@@ -28,7 +29,7 @@ public class FurballAttack : CatAttackBase
             furballAttackSFX.Play();
 
         Vector2 dir = target.position - towerPos;
-        GameObject furball = Instantiate(furballPrefab, towerPos, Quaternion.identity);
+        GameObject furball = Instantiate(furballPrefab, furballSpawn.position, Quaternion.identity);
         furball.GetComponent<Furball>().GetTowerData(towerData);
         furball.GetComponent<Furball>().SetDirection(dir);
         furball.GetComponent<Furball>().SetTarget(target);

@@ -9,11 +9,15 @@ public class EnemyData : ScriptableObject
 
     [Header("Stats")]
     public float startHealth;
-    public float endHealth;
     public float startSpeed;
+    public float midHealth;
+    public float midSpeed;
+    public float endHealth;
     public float endSpeed;
     public float damageToPlayer;
-    public GameObject catnipPrefab;
+    
+    [Header("Early (2), Mid (1), End (0)")]
+    public GameObject[] catnipPrefabs;
     
     [Header("Animation Trigger Name")]
     public string[] animation;

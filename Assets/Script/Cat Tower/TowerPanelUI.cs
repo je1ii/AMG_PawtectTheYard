@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TowerPanelUI : MonoBehaviour
 {
@@ -65,6 +66,7 @@ public class TowerPanelUI : MonoBehaviour
 
             if (nextCatTower.prefab != null)
             {
+                Quaternion lastTowerRotation = Quaternion.identity;
                 var existingTowers = FindObjectsByType<CatTower>(FindObjectsSortMode.None);
 
                 foreach (var t in existingTowers)
@@ -73,6 +75,8 @@ public class TowerPanelUI : MonoBehaviour
                     {
                         if (t.gameObject != null)
                         {
+                            lastTowerRotation = t.transform.localRotation;
+                            
                             t.GetComponent<CatTower>().ForceStopEverything();
                             t.gameObject.SetActive(false);
                         }
@@ -80,6 +84,8 @@ public class TowerPanelUI : MonoBehaviour
                 }
 
                 var newTower = Instantiate(nextCatTower.prefab, pos);
+                newTower.transform.localRotation = lastTowerRotation;
+                
                 var ct = newTower.GetComponent<CatTower>();
                 ct.AssignSlot(slotIndex);
                 ct.AssignData(catTowers[newLevel]);

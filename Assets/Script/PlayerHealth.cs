@@ -16,11 +16,13 @@ public class PlayerHealth : MonoBehaviour
     public bool isFullHealth;
     public bool isHalfHealth;
     public bool canDie;
-    
+
+    public GameObject loadingAnim;
     
     public AudioSource scream1;
     public AudioSource scream2;
     public AudioSource hit;
+    public AudioSource death;
 
     private CameraDamageEffect cde;
 
@@ -68,7 +70,11 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator PlayerDied()
     {
         // show game over menu
-        yield return new WaitForSeconds(3f);
+        death.Play();
+        
+        if(loadingAnim!=null) 
+            loadingAnim.GetComponent<Animator>().SetTrigger("LoadingOut");
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Game Over");
     }
 }

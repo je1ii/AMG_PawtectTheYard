@@ -15,11 +15,16 @@ MonoBehaviour:
   enemyName: 1
   prefab: {fileID: 689556236055443379, guid: 934636eba7cda0549943042c1185252a, type: 3}
   startHealth: 40
-  endHealth: 100
   startSpeed: 0.5
+  midHealth: 60
+  midSpeed: 0.6
+  endHealth: 100
   endSpeed: 0.7
   damageToPlayer: 1
-  catnipPrefab: {fileID: 5879790282764469185, guid: f160b59c190a2c849a753e46f91621d7, type: 3}
+  catnipPrefabs:
+  - {fileID: 346708743309321302, guid: 18205154b1c062e4d86b247e40175531, type: 3}
+  - {fileID: 346708743309321302, guid: ec09422406c4db44eaaeaa85aa8e06eb, type: 3}
+  - {fileID: 346708743309321302, guid: af9afc724b6ff7449840e0fd0bcb51e7, type: 3}
   animation:
   - DeathL
   - DeathR

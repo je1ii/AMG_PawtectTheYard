@@ -20,6 +20,8 @@ public class CatPrey : MonoBehaviour
 
     private bool isDead = false;
     private Animator animator;
+    private bool isMidGame = false;
+    private bool isEndGame = false;
 
     private AudioSource roachDeathSFX;
     private AudioSource gerryDeathSFX;
@@ -27,6 +29,12 @@ public class CatPrey : MonoBehaviour
     private AudioSource catnipDropSFX; 
 
     public void SetData(EnemyData data) => enemyData = data;
+
+    public void SetGameState(bool mid, bool end)
+    {
+        isEndGame = end;
+        isMidGame = mid;
+    }
 
     private void Start()
     {
@@ -182,8 +190,21 @@ public class CatPrey : MonoBehaviour
         if (catnipDropSFX != null)
             catnipDropSFX.Play();
 
-        if (enemyData.catnipPrefab != null)
-            Instantiate(enemyData.catnipPrefab, transform.position, Quaternion.identity);
+        if (isEndGame)
+        {
+            if(enemyData.catnipPrefabs[0] != null) Instantiate(enemyData.catnipPrefabs[0], transform.position, Quaternion.identity);
+            Debug.Log("Dropped end game catnip");
+        }
+        else if (isMidGame)
+        {
+            if(enemyData.catnipPrefabs[1] != null) Instantiate(enemyData.catnipPrefabs[1], transform.position, Quaternion.identity);
+            Debug.Log("Dropped mid game catnip");
+        }
+        else
+        {
+            if(enemyData.catnipPrefabs[2] != null) Instantiate(enemyData.catnipPrefabs[2], transform.position, Quaternion.identity);
+            Debug.Log("Dropped early game catnip");
+        }
 
         Destroy(gameObject);
     }
@@ -191,6 +212,7 @@ public class CatPrey : MonoBehaviour
     private void OnReachEnd()
     {
         Debug.Log($"{name} reached the end!");
+        PlayerHealth.Instance.DamagePlayer(enemyData.damageToPlayer);
         Destroy(gameObject);
     }
 }

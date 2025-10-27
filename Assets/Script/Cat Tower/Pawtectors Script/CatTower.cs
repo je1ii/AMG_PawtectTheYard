@@ -204,7 +204,6 @@ public class CatTower : MonoBehaviour
 
     private async Task PlayFurballAnim()
     {
-        
         if (catAnimator != null && catAnimator.isActiveAndEnabled) catAnimator.SetTrigger("Furball");
         await Task.Delay(1125);
     }
