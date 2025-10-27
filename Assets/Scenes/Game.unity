@@ -1657,7 +1657,7 @@ MonoBehaviour:
   testRound1_Wave4: 0
   testRound1_Wave5: 0
   testRound2_Wave1: 0
-  testRound2_Wave2: 1
+  testRound2_Wave2: 0
   testRound2_Wave3: 0
   testRound2_Wave4: 0
   testRound2_Wave5: 0
@@ -13891,7 +13891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1932180974
 RectTransform:
   m_ObjectHideFlags: 0
