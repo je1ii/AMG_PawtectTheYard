@@ -70,8 +70,5 @@ public class PlayerHealth : MonoBehaviour
         // show game over menu
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("Game Over");
-        
-        // back to menu
-        SceneManager.LoadScene("MainMenu");
     }
 }

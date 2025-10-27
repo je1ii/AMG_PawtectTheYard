@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2380329552199811806}
   - component: {fileID: 667673092115023474}
   - component: {fileID: 5725320358910138455}
+  - component: {fileID: 1665970255164510089}
   m_Layer: 0
   m_Name: 25Catnip
   m_TagString: Untagged
@@ -166,3 +167,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatnipPickupSystem
   catnipData: {fileID: 11400000, guid: 6dcec78b1aec62c458c76bce965d2e63, type: 2}
   moveDuration: 0.5
+--- !u!114 &1665970255164510089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346708743309321302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082637d99b9e1924dac595ba3cb60e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CatnipFade
+  lifetime: 1.5
+  fadeDuration: 1
