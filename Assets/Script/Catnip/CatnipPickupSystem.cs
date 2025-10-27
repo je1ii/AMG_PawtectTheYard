@@ -11,10 +11,18 @@ public class CatnipPickupSystem : MonoBehaviour
     private Vector3 startScale;
     private Vector3 endScale = Vector3.zero;
     private float elapsedTime = 0f;
+    
+    private AudioSource catnipCollectedSFX;
 
     public void InitializeDrop(CatnipData dropData)
     {
         catnipData = dropData;
+    }
+
+    void Start()
+    {
+
+        catnipCollectedSFX = GameObject.Find("SFX Catnip Collected")?.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -55,8 +63,10 @@ public class CatnipPickupSystem : MonoBehaviour
     private void OnReachUI()
     {
         CatnipManager.Instance.AddCatnip(catnipData.catnipValue);
+
+        if (catnipCollectedSFX != null)
+            catnipCollectedSFX.Play();
+
         Destroy(gameObject);
     }
 }
-
-

@@ -4,6 +4,16 @@ using UnityEngine;
 public class BiteAttack : CatAttackBase
 {
     public float attackRadius = 1.7f;
+
+    private AudioSource feralBiteSFX;
+
+    private void Start()
+    {
+        feralBiteSFX = GameObject.Find("Feral Bite")?.GetComponent<AudioSource>();
+        if (feralBiteSFX == null)
+            Debug.LogWarning("SFX Feral Bite not found in scene!");
+    }
+
     public override bool Attack(List<Transform> enemies, Vector3 towerPos, TowerData towerData)
     {
         if (enemies == null || enemies.Count == 0) 
@@ -33,8 +43,10 @@ public class BiteAttack : CatAttackBase
              return false;
          }
 
-        //Play bite animation here
         Debug.Log($"Bite confirmed");
+
+        if (feralBiteSFX != null)
+            feralBiteSFX.Play();
 
         highestHPEnemy.GetComponentInChildren<EnemyHealthBar>().TakeDamage(towerData.biteLevel3);
 
