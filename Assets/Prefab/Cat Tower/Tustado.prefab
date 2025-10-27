@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4472689572342328242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73627828003870924}
+  m_Layer: 0
+  m_Name: FurballSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73627828003870924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472689572342328242}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8428663162357329067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5129709286297428507
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +64,7 @@ Transform:
   - {fileID: 4344714210232618754}
   - {fileID: 7918393784548021734}
   - {fileID: 8764582612986005200}
+  - {fileID: 73627828003870924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-274877482038921865
@@ -56,7 +88,7 @@ MonoBehaviour:
   biteAttack: {fileID: 0}
   enemiesInRange: []
   slotParent: 1
-  towerLevel: 0
+  towerData: {fileID: 0}
   clawAnim:
   - ClawR
   - ClawL
@@ -218,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FurballAttack
   furballPrefab: {fileID: 6865807141230216947, guid: 9f785c13a3a18d74cb102877f039f5e7, type: 3}
+  furballSpawn: {fileID: 73627828003870924}
 --- !u!1 &8399598924212037368
 GameObject:
   m_ObjectHideFlags: 0

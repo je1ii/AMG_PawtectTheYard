@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CatnipFade : MonoBehaviour
 {
-    public float lifetime = 1.5f;
+    public float lifetime = 3f;
     public float fadeDuration = 1f;
 
     private SpriteRenderer spriteRenderer;
@@ -27,7 +27,6 @@ public class CatnipFade : MonoBehaviour
             t += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
             spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-            Debug.Log($"Catnip fading... alpha: {alpha:F2}");
             yield return null;
         }
 

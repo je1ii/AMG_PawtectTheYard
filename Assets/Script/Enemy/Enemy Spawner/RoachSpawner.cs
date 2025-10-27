@@ -7,7 +7,7 @@ public class RoachSpawner : MonoBehaviour
     public EnemyData data;
 
     // signature: (total, batchSize, moveSpeed, delay, manager, spawnPosition)
-    public IEnumerator SpawnRoachBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition, bool isRound2)
+    public IEnumerator SpawnRoachBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition, bool isMidGame, bool isEndGame)
     {
         if (data.prefab == null)
         {
@@ -20,24 +20,32 @@ public class RoachSpawner : MonoBehaviour
         {
             for (int i = 0; i < batchSize && spawned < total; i++)
             {
-                GameObject roach = Instantiate(data.prefab, spawnPosition, Quaternion.identity);
+                GameObject roach = Instantiate(data.prefab, spawnPosition, transform.localRotation);
+                roach.GetComponent<CatPrey>().SetData(data);
+                roach.GetComponent<CatPrey>().SetGameState(isMidGame, isEndGame);
 
-                if (isRound2)
+                if (isEndGame)
                 {
                     roach.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.endHealth);
+                }
+                else if(isMidGame)
+                {
+                    roach.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.midHealth);
                 }
                 else
                 {
                     roach.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.startHealth);
                 }
                 
-                roach.GetComponent<CatPrey>().SetData(data);
-                
                 if (manager != null)
                 {
-                    if (isRound2)
+                    if (isEndGame)
                     {
                         manager.SetupEnemyPath(roach, data.endSpeed);
+                    }
+                    else if(isMidGame)
+                    {
+                        manager.SetupEnemyPath(roach, data.midSpeed);     
                     }
                     else
                     {

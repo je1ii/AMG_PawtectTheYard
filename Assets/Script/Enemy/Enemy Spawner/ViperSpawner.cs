@@ -7,7 +7,7 @@ public class ViperSpawner : MonoBehaviour
     public EnemyData data;
 
     // signature: (total, batchSize, moveSpeed, delay, manager, spawnPosition)
-    public IEnumerator SpawnViperBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition, bool isRound2)
+    public IEnumerator SpawnViperBatch(int total, int batchSize, float delay, WaveManager manager, Vector3 spawnPosition, bool isMidGame, bool isEndGame)
     {
         if (data.prefab == null)
         {
@@ -20,24 +20,33 @@ public class ViperSpawner : MonoBehaviour
         {
             for (int i = 0; i < batchSize && spawned < total; i++)
             {
-                GameObject viper = Instantiate(data.prefab, spawnPosition, Quaternion.identity);
+                GameObject viper = Instantiate(data.prefab, spawnPosition, transform.localRotation);
+                viper.GetComponent<CatPrey>().SetData(data);
+                viper.GetComponent<CatPrey>().SetGameState(isMidGame, isEndGame);
 
-                if (isRound2)
+                if (isEndGame)
                 {
                     viper.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.endHealth);
+                }
+                else if(isMidGame)
+                {
+                    // viper starts to spawn at mid game
+                    viper.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.startHealth);
                 }
                 else
                 {
                     viper.GetComponentInChildren<EnemyHealthBar>().SetMaxHealth(data.startHealth);
                 }
-                
-                viper.GetComponent<CatPrey>().SetData(data);
 
                 if (manager != null)
                 {
-                    if (isRound2)
+                    if (isEndGame)
                     {
                         manager.SetupEnemyPath(viper, data.endSpeed);
+                    }
+                    else if(isMidGame)
+                    {
+                        manager.SetupEnemyPath(viper, data.startSpeed);
                     }
                     else
                     {

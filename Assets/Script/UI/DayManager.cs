@@ -25,6 +25,8 @@ public class DayManager : MonoBehaviour
     public TextMeshProUGUI waveCounterText;
     public GameObject waveUI;
     public float nextWaveDelay = 3f;
+    public Image dayIcon;
+    public Sprite[] dayIcons;
 
     [Header("Post Processing")]
     public Volume postProcessVolume;
@@ -45,6 +47,11 @@ public class DayManager : MonoBehaviour
     private int currentWaveInPhase = 1;
     private int currentWaveInRound = 1;
     private int wavesPerRound = 5;
+    
+    private CanvasGroup waveCanvasGroup;
+
+    private AudioSource waveSFX;
+    private AudioSource waveSongSFX;
 
     private TimeOfDay currentTimeOfDay => waveSchedule[currentScheduleIndex].timeOfDay;
     private int wavesInCurrentPhase => waveSchedule[currentScheduleIndex].waveCount;
@@ -53,9 +60,19 @@ public class DayManager : MonoBehaviour
     {
         UpdateUI();
         UpdatePostProcessing();
-
+        
+        waveSFX = GameObject.Find("SFX Success Wave").GetComponent<AudioSource>();
+        waveSongSFX = GameObject.Find("SFX Success Wave Song").GetComponent<AudioSource>();
+        
         if (waveUI != null)
+        {
+            waveCanvasGroup = waveUI.GetComponent<CanvasGroup>();
+            if (waveCanvasGroup == null)
+                waveCanvasGroup = waveUI.AddComponent<CanvasGroup>();
+
+            waveCanvasGroup.alpha = 0f;
             waveUI.SetActive(false);
+        }
     }
 
     public void CompleteWave()
@@ -66,12 +83,19 @@ public class DayManager : MonoBehaviour
     private IEnumerator HandleNextWaveImage()
     {
         if (waveUI != null)
+        {
             waveUI.SetActive(true);
-
+            yield return StartCoroutine(FadeCanvasGroup(waveCanvasGroup, 0f, 1f, 0.2F));
+        }
+        
+        waveSFX.Play();
+        waveSongSFX.Play();
         yield return new WaitForSeconds(nextWaveDelay);
 
         if (waveUI != null)
-            waveUI.SetActive(false);
+            yield return StartCoroutine(FadeCanvasGroup(waveCanvasGroup, 1f, 0f, 1F));
+            
+        waveUI.SetActive(false);
 
         currentWaveInPhase++;
         currentWaveInRound++;
@@ -95,13 +119,26 @@ public class DayManager : MonoBehaviour
 
         UpdateUI();
     }
+    
+    private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float duration)
+    {
+        float time = 0f;
+        cg.alpha = start;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(start, end, time / duration);
+            yield return null;
+        }
+        cg.alpha = end;
+    }
 
     void UpdateUI()
     {
         if (waveCounterText != null)
         {
             waveCounterText.text =
-                $"Time of Day: {currentTimeOfDay}\n" +
+                $"{currentTimeOfDay}\n" +
                 $"Wave: {currentWaveInRound} / {wavesPerRound}";
         }
     }
@@ -114,12 +151,15 @@ public class DayManager : MonoBehaviour
         {
             case TimeOfDay.Morning:
                 postProcessVolume.profile = morningProfile;
+                dayIcon.sprite = dayIcons[0];
                 break;
             case TimeOfDay.Afternoon:
                 postProcessVolume.profile = afternoonProfile;
+                dayIcon.sprite = dayIcons[1];
                 break;
             case TimeOfDay.Evening:
                 postProcessVolume.profile = eveningProfile;
+                dayIcon.sprite = dayIcons[2];
                 break;
         }
     }

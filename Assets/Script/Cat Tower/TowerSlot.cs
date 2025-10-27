@@ -12,6 +12,14 @@ public class TowerSlot : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI levelText;
+
+    public Image furballHolder;
+    public Image clawHolder;
+    public Image biteHolder;
+
+    public Sprite[] furballBar;
+    public Sprite[] clawBar;
+    public Sprite[] biteBar;
     
     [HideInInspector] public TowerData currentTower;
     
@@ -23,16 +31,37 @@ public class TowerSlot : MonoBehaviour
         {
             costText.text = " ";
             levelText.text = "Goodest Cat";
+            
+            furballHolder.sprite = furballBar[3];
+            clawHolder.sprite = clawBar[2];
+            biteHolder.sprite = biteBar[1];
         }
-        else if(newTower.currentLevel == 0)
+        else if(newTower.currentLevel == 2)
         {
             costText.text = newTower.levelCost.ToString();
-            levelText.text = "Add Cat?";
+            levelText.text = "Promote?";
+            
+            furballHolder.sprite = furballBar[2];
+            clawHolder.sprite = clawBar[1];
+            biteHolder.sprite = biteBar[0];
+        }
+        else if(newTower.currentLevel == 1)
+        {
+            costText.text = newTower.levelCost.ToString();
+            levelText.text = "Promote?";
+            
+            furballHolder.sprite = furballBar[1];
+            clawHolder.sprite = clawBar[0];
+            biteHolder.sprite = biteBar[0];
         }
         else
         {
             costText.text = newTower.levelCost.ToString();
-            levelText.text = "Promote?";
+            levelText.text = "Add Cat?";
+            
+            furballHolder.sprite = furballBar[0];
+            clawHolder.sprite = clawBar[0];
+            biteHolder.sprite = biteBar[0];
         }
         
         if(newTower.towerIcon != null)

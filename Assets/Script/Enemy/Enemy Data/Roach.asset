@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   enemyName: 0
   prefab: {fileID: 5639754316391415422, guid: 9f151933ffb25eb4ba52a1deefd31ebe, type: 3}
-  startHealth: 30
-  endHealth: 50
+  startHealth: 20
   startSpeed: 0.4
-  endSpeed: 0.5
+  midHealth: 30
+  midSpeed: 0.5
+  endHealth: 50
+  endSpeed: 0.6
   damageToPlayer: 0.5
-  catnipPrefab: {fileID: 3913482247680535315, guid: a822bafeac9c0bd4697761adc45d934f, type: 3}
+  catnipPrefabs:
+  - {fileID: 3913482247680535315, guid: b7f02a2cc7b0e554ba399ac1bccb2d40, type: 3}
+  - {fileID: 3913482247680535315, guid: c33d54918b6c96844ab16e86124c8e76, type: 3}
+  - {fileID: 3913482247680535315, guid: a822bafeac9c0bd4697761adc45d934f, type: 3}
   animation:
   - Death
