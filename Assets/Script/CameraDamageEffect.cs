@@ -33,6 +33,7 @@ public class CameraDamageEffect : MonoBehaviour
 
     private IEnumerator DoEffect()
     {
+        originalPos = mainCam.transform.position;
         isEffectActive = true;
 
         // Shake

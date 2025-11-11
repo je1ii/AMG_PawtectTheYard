@@ -14,6 +14,7 @@ public class WaveManager : MonoBehaviour
     public Transform path2;
     public Transform path3;
     public Transform path4;
+    public Transform[] pathPoints;
 
     [Header("Other Reference")]
     public DayManager dayManager;
@@ -176,10 +177,7 @@ public class WaveManager : MonoBehaviour
         CatPrey p = enemy.GetComponent<CatPrey>();
         if (p != null)
         {
-            p.path1 = path1;
-            p.path2 = path2;
-            p.path3 = path3;
-            p.path4 = path4;
+            p.paths = pathPoints;
         }
     }
 

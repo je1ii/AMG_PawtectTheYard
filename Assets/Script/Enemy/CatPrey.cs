@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class CatPrey : MonoBehaviour
 {
@@ -9,11 +10,10 @@ public class CatPrey : MonoBehaviour
     [Header("Components")]
     public SpriteRenderer spriteRenderer;
 
-    [Header("Path Points (for curve path)")]
-    public Transform path1, path2, path3, path4;
+    [Header("Path Points")]
+    public Transform[] paths;
 
     [Header("Path Settings")]
-    [SerializeField] private float curveDepth = 6f;
     private float totalPathLength;
     private float traveledDistance;
     private Vector3 startOffset = Vector3.zero;
@@ -52,67 +52,75 @@ public class CatPrey : MonoBehaviour
             return;
         }
 
+        if (paths == null || paths.Length == 0)
+        {
+            Debug.LogError($"{name}: Path points not assigned!");
+            return;
+        }
+
         CalculatePathLength();
-        transform.position = path1.position + startOffset;
+        transform.position = paths[0].position + startOffset;
     }
 
     private void Update()
     {
         if (isDead || enemyData == null) return;
-        MoveAlongCurvePath(enemyData.startSpeed);
+        MoveAlongPath(enemyData.startSpeed);
     }
 
     private void CalculatePathLength()
     {
-        float vLength = Vector3.Distance(path2.position, (path2.position + path3.position) / 2f + Vector3.down * curveDepth)
-                      + Vector3.Distance((path2.position + path3.position) / 2f + Vector3.down * curveDepth, path3.position);
+        float length = 0f;
 
-        totalPathLength = Vector3.Distance(path1.position, path2.position)
-                        + vLength
-                        + Vector3.Distance(path3.position, path4.position);
+        // Go through each segment between points
+        for (int i = 0; i < paths.Length - 1; i++)
+        {
+            // Add the distance between consecutive points
+            length += Vector3.Distance(paths[i].position, paths[i + 1].position);
+        }
+
+        totalPathLength = length;
     }
 
-    private void MoveAlongCurvePath(float speed)
+    private void MoveAlongPath(float speed)
     {
+        if (paths == null || paths.Length < 2)
+            return;
+
         traveledDistance += speed * Time.deltaTime;
+
+        // If total path length isn't computed yet, calculate it
+        if (totalPathLength <= 0f)
+            CalculatePathLength();
+
         if (traveledDistance >= totalPathLength)
         {
             OnReachEnd();
             return;
         }
 
-        float dist12 = Vector3.Distance(path1.position, path2.position);
-        float dist23 = Vector3.Distance(path2.position, (path2.position + path3.position) / 2f + Vector3.down * curveDepth)
-                      + Vector3.Distance((path2.position + path3.position) / 2f + Vector3.down * curveDepth, path3.position);
-        float dist34 = Vector3.Distance(path3.position, path4.position);
+        // Find which segment we're currently in
+        float distanceCovered = 0f;
+        Vector3 newPos = paths[0].position;
 
-        Vector3 newPos;
-
-        if (traveledDistance <= dist12)
+        for (int i = 0; i < paths.Length - 1; i++)
         {
-            float t = traveledDistance / dist12;
-            newPos = Vector3.Lerp(path1.position, path2.position, t);
-        }
-        else if (traveledDistance <= dist12 + dist23)
-        {
-            float t = (traveledDistance - dist12) / dist23;
+            float segmentLength = Vector3.Distance(paths[i].position, paths[i + 1].position);
 
-            Vector3 start = path2.position + startOffset;
-            Vector3 end = path3.position + startOffset;
-            Vector3 control = (path2.position + path3.position) / 2f + Vector3.down * curveDepth + startOffset;
+            if (traveledDistance <= distanceCovered + segmentLength)
+            {
+                float t = (traveledDistance - distanceCovered) / segmentLength;
+                newPos = Vector3.Lerp(paths[i].position, paths[i + 1].position, t);
+                break;
+            }
 
-            newPos = Mathf.Pow(1 - t, 2) * start + 2 * (1 - t) * t * control + Mathf.Pow(t, 2) * end;
+            distanceCovered += segmentLength;
         }
-        else
-        {
-            float t = (traveledDistance - dist12 - dist23) / dist34;
-            newPos = Vector3.Lerp(path3.position + startOffset, path4.position + startOffset, t);
-        }
-
+        
         Vector3 dir = newPos - transform.position;
         if (dir != Vector3.zero)
             RotateTowardDirection(dir.normalized);
-
+        
         transform.position = newPos;
     }
 
