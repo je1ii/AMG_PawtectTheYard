@@ -20,6 +20,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject loadingScreen;
     public float loadingDelay = 2f;
 
+    public bool GetIsPaused()
+    {
+        return isPaused;
+    }
+    
     void Start()
     {
         pauseScreen.transform.localScale = Vector3.zero;

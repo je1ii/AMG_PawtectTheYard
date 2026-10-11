@@ -1928,6 +1928,11 @@ MonoBehaviour:
   cameraMovement: {fileID: 519420033}
   moveAmount: 10
   edgeSize: 30
+  enemiesInTheScene: []
+  startPathPoint: {fileID: 0}
+  endPathPoint: {fileID: 85823713}
+  enemyClosestToEnd: {fileID: 0}
+  lockedOnEnemy: 0
 --- !u!4 &291765046
 Transform:
   m_ObjectHideFlags: 0
@@ -3318,6 +3323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73bb74a745be95f45a0b78baadd890ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
+  pauseMenu: {fileID: 889878951}
 --- !u!1 &527023808
 GameObject:
   m_ObjectHideFlags: 0
